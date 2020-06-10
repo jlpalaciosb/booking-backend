@@ -3,7 +3,6 @@ package com.example.agenda.models;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-
 import java.sql.Date;
 
 @MappedSuperclass
