@@ -37,7 +37,7 @@ class ServicioController {
     @GetMapping("/servicios/{id}")
     Servicio one(@PathVariable Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new ServicioNotFoundException(id));
+                .orElseThrow(() -> new EntityNotFoundException("servicio", id));
     }
 
     @PutMapping("/servicios/{id}")
@@ -48,7 +48,7 @@ class ServicioController {
                     servicio.setDescripcion(nuevoServicio.getDescripcion());
                     return repository.save(servicio);
                 })
-                .orElseThrow(() -> new ServicioNotFoundException(id));
+                .orElseThrow(() -> new EntityNotFoundException("servicio", id));
     }
 
     @DeleteMapping("/servicios/{id}")
@@ -56,7 +56,7 @@ class ServicioController {
         if (repository.existsById(id)) {
             repository.deleteById(id);
         } else {
-            throw new ServicioNotFoundException(id);
+            throw new EntityNotFoundException("servicio", id);
         }
     }
 }

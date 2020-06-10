@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-class ServicioNotFoundAdvice {
+class EntityNotFoundAdvice {
 
     @ResponseBody
-    @ExceptionHandler(ServicioNotFoundException.class)
+    @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String servicioNotFoundHandler(ServicioNotFoundException ex) {
+    String servicioNotFoundHandler(EntityNotFoundException ex) {
         return ex.getMessage();
     }
 }
