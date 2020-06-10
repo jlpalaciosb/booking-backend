@@ -15,11 +15,6 @@ public class Servicio {
 
     public Servicio() {}
 
-    public Servicio(String nombre, String descripcion) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-    }
-
     public Long getId() {
         return id;
     }
@@ -46,13 +41,12 @@ public class Servicio {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof Servicio))
-            return false;
+        if (this == o) return true;
+        if (!(o instanceof Servicio)) return false;
         Servicio servicio = (Servicio) o;
-        return Objects.equals(this.id, servicio.id) && Objects.equals(this.nombre, servicio.nombre)
-                && Objects.equals(this.descripcion, servicio.descripcion);
+        return Objects.equals(this.id, servicio.id) &&
+                Objects.equals(this.nombre, servicio.nombre) &&
+                Objects.equals(this.descripcion, servicio.descripcion);
     }
 
     @Override
