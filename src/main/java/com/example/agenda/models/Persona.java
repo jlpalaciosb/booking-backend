@@ -3,7 +3,7 @@ package com.example.agenda.models;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import java.sql.Date;
+import java.time.LocalDate;
 
 @MappedSuperclass
 abstract class Persona {
@@ -14,7 +14,7 @@ abstract class Persona {
     String apellido;
     String correo;
     String telefono;
-    Date fechaNacimiento;
+    LocalDate fechaNacimiento;
 
     public Persona() {}
 
@@ -66,11 +66,11 @@ abstract class Persona {
         this.telefono = telefono;
     }
 
-    public Date getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 }
