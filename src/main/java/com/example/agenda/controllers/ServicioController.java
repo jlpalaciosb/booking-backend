@@ -23,36 +23,36 @@ class ServicioController {
     // Raíz de agregación
 
     @GetMapping("/servicios")
-    List<Servicio> all() {
+    List<Servicio> listarServicios() {
         return repository.findAll();
     }
 
     @PostMapping("/servicios")
-    Servicio newServicio(@RequestBody Servicio nuevoServicio) {
+    Servicio crearServicio(@RequestBody Servicio nuevoServicio) {
         return repository.save(nuevoServicio);
     }
 
     // Un ítem en específico
 
     @GetMapping("/servicios/{id}")
-    Servicio one(@PathVariable Long id) {
+    Servicio obtenerServicio(@PathVariable Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("servicio", id));
     }
 
     @PutMapping("/servicios/{id}")
-    Servicio replaceServicio(@RequestBody Servicio nuevoServicio, @PathVariable Long id) {
+    Servicio actualizarServicio(@PathVariable Long id, @RequestBody Servicio actualServicio) {
         return repository.findById(id)
                 .map(servicio -> {
-                    servicio.setNombre(nuevoServicio.getNombre());
-                    servicio.setDescripcion(nuevoServicio.getDescripcion());
+                    servicio.setNombre(actualServicio.getNombre());
+                    servicio.setDescripcion(actualServicio.getDescripcion());
                     return repository.save(servicio);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("servicio", id));
     }
 
     @DeleteMapping("/servicios/{id}")
-    void deleteServicio(@PathVariable Long id) {
+    void eliminarServicio(@PathVariable Long id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);
         } else {

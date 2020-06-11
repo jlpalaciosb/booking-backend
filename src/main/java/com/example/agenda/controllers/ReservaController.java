@@ -23,42 +23,42 @@ class ReservaController {
     // Raíz de agregación
 
     @GetMapping("/reservas")
-    List<Reserva> all() {
+    List<Reserva> listarReservas() {
         return repository.findAll();
     }
 
     @PostMapping("/reservas")
-    Reserva newReserva(@RequestBody Reserva nuevoReserva) {
-        return repository.save(nuevoReserva);
+    Reserva crearReserva(@RequestBody Reserva nuevaReserva) {
+        return repository.save(nuevaReserva);
     }
 
     // Un ítem en específico
 
     @GetMapping("/reservas/{id}")
-    Reserva one(@PathVariable Long id) {
+    Reserva obtenerReserva(@PathVariable Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("reserva", id));
     }
 
     @PutMapping("/reservas/{id}")
-    Reserva replaceReserva(@RequestBody Reserva nuevaReserva, @PathVariable Long id) {
+    Reserva actualizarReserva(@PathVariable Long id, @RequestBody Reserva actualReserva) {
         return repository.findById(id)
                 .map(reserva -> {
-                    reserva.setFecha(nuevaReserva.getFecha());
-                    reserva.setHoraInicio(nuevaReserva.getHoraInicio());
-                    reserva.setHoraFin(nuevaReserva.getHoraFin());
-                    reserva.setServicio(nuevaReserva.getServicio());
-                    reserva.setProfesional(nuevaReserva.getProfesional());
-                    reserva.setCliente(nuevaReserva.getCliente());
-                    reserva.setEstado(nuevaReserva.getEstado());
-                    reserva.setComentario(nuevaReserva.getComentario());
+                    reserva.setFecha(actualReserva.getFecha());
+                    reserva.setHoraInicio(actualReserva.getHoraInicio());
+                    reserva.setHoraFin(actualReserva.getHoraFin());
+                    reserva.setServicio(actualReserva.getServicio());
+                    reserva.setProfesional(actualReserva.getProfesional());
+                    reserva.setCliente(actualReserva.getCliente());
+                    reserva.setEstado(actualReserva.getEstado());
+                    reserva.setComentario(actualReserva.getComentario());
                     return repository.save(reserva);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("reserva", id));
     }
 
     @DeleteMapping("/reservas/{id}")
-    void deleteReserva(@PathVariable Long id) {
+    void eliminarReserva(@PathVariable Long id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);
         } else {

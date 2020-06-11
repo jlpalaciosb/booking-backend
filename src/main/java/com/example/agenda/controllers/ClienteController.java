@@ -23,40 +23,40 @@ class ClienteController {
     // Raíz de agregación
 
     @GetMapping("/clientes")
-    List<Cliente> all() {
+    List<Cliente> listarClientes() {
         return repository.findAll();
     }
 
     @PostMapping("/clientes")
-    Cliente newCliente(@RequestBody Cliente nuevoCliente) {
+    Cliente crearCliente(@RequestBody Cliente nuevoCliente) {
         return repository.save(nuevoCliente);
     }
 
     // Un ítem en específico
 
     @GetMapping("/clientes/{id}")
-    Cliente one(@PathVariable Long id) {
+    Cliente obtenerCliente(@PathVariable Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("cliente", id));
     }
 
     @PutMapping("/clientes/{id}")
-    Cliente replaceCliente(@RequestBody Cliente nuevoCliente, @PathVariable Long id) {
+    Cliente actualizarCliente(@PathVariable Long id, @RequestBody Cliente actualCliente) {
         return repository.findById(id)
                 .map(cliente -> {
-                    cliente.setDocumento(nuevoCliente.getDocumento());
-                    cliente.setNombre(nuevoCliente.getNombre());
-                    cliente.setApellido(nuevoCliente.getApellido());
-                    cliente.setCorreo(nuevoCliente.getCorreo());
-                    cliente.setTelefono(nuevoCliente.getTelefono());
-                    cliente.setFechaNacimiento(nuevoCliente.getFechaNacimiento());
+                    cliente.setDocumento(actualCliente.getDocumento());
+                    cliente.setNombre(actualCliente.getNombre());
+                    cliente.setApellido(actualCliente.getApellido());
+                    cliente.setCorreo(actualCliente.getCorreo());
+                    cliente.setTelefono(actualCliente.getTelefono());
+                    cliente.setFechaNacimiento(actualCliente.getFechaNacimiento());
                     return repository.save(cliente);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("cliente", id));
     }
 
     @DeleteMapping("/clientes/{id}")
-    void deleteCliente(@PathVariable Long id) {
+    void eliminarCliente(@PathVariable Long id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);
         } else {

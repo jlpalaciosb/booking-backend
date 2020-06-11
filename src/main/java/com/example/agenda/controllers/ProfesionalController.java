@@ -23,40 +23,40 @@ class ProfesionalController {
     // Raíz de agregación
 
     @GetMapping("/profesionales")
-    List<Profesional> all() {
+    List<Profesional> listarProfesionales() {
         return repository.findAll();
     }
 
     @PostMapping("/profesionales")
-    Profesional newProfesional(@RequestBody Profesional nuevoProfesional) {
+    Profesional crearProfesional(@RequestBody Profesional nuevoProfesional) {
         return repository.save(nuevoProfesional);
     }
 
     // Un ítem en específico
 
     @GetMapping("/profesionales/{id}")
-    Profesional one(@PathVariable Long id) {
+    Profesional obtenerProfesional(@PathVariable Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("profesional", id));
     }
 
     @PutMapping("/profesionales/{id}")
-    Profesional replaceProfesional(@RequestBody Profesional nuevoProfesional, @PathVariable Long id) {
+    Profesional actualizarProfesional(@PathVariable Long id, @RequestBody Profesional actualProfesional) {
         return repository.findById(id)
                 .map(profesional -> {
-                    profesional.setDocumento(nuevoProfesional.getDocumento());
-                    profesional.setNombre(nuevoProfesional.getNombre());
-                    profesional.setApellido(nuevoProfesional.getApellido());
-                    profesional.setCorreo(nuevoProfesional.getCorreo());
-                    profesional.setTelefono(nuevoProfesional.getTelefono());
-                    profesional.setFechaNacimiento(nuevoProfesional.getFechaNacimiento());
+                    profesional.setDocumento(actualProfesional.getDocumento());
+                    profesional.setNombre(actualProfesional.getNombre());
+                    profesional.setApellido(actualProfesional.getApellido());
+                    profesional.setCorreo(actualProfesional.getCorreo());
+                    profesional.setTelefono(actualProfesional.getTelefono());
+                    profesional.setFechaNacimiento(actualProfesional.getFechaNacimiento());
                     return repository.save(profesional);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("profesional", id));
     }
 
     @DeleteMapping("/profesionales/{id}")
-    void deleteProfesional(@PathVariable Long id) {
+    void eliminarProfesional(@PathVariable Long id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);
         } else {
