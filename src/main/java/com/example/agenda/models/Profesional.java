@@ -1,10 +1,16 @@
 package com.example.agenda.models;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Entity
 public class Profesional extends Persona {
+
+    @ManyToMany
+    private Set<Servicio> servicios = new TreeSet<>();
 
     public Profesional() {}
 
@@ -34,5 +40,13 @@ public class Profesional extends Persona {
                 "id=" + this.id + ", " +
                 "nombre='" + this.nombre + "', " +
                 "apellido='" + this.apellido + "'}";
+    }
+
+    public Set<Servicio> getServicios() {
+        return servicios;
+    }
+
+    public void setServicios(Set<Servicio> servicios) {
+        this.servicios = servicios;
     }
 }
