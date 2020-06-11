@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Servicio {
+public class Servicio implements Comparable<Servicio> {
 
     private @Id @GeneratedValue Long id;
     private String nombre;
@@ -59,5 +59,10 @@ public class Servicio {
                 "id=" + this.id + ", " +
                 "nombre='" + this.nombre + "', " +
                 "descripcion='" + this.descripcion + "'}";
+    }
+
+    @Override
+    public int compareTo(Servicio servicio) {
+        return this.nombre.compareTo(servicio.nombre);
     }
 }
