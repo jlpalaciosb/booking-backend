@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
@@ -13,13 +14,13 @@ import java.util.Objects;
 public class Reserva {
 
     private @Id @GeneratedValue Long id;
-    private LocalDate fecha;
-    private LocalTime horaInicio;
-    private LocalTime horaFin;
-    private @ManyToOne Servicio servicio;
-    private @ManyToOne Profesional profesional;
-    private @ManyToOne Cliente cliente;
-    private Character estado;
+    private @NotNull LocalDate fecha;
+    private @NotNull LocalTime horaInicio;
+    private @NotNull LocalTime horaFin;
+    private @ManyToOne @NotNull Servicio servicio;
+    private @ManyToOne @NotNull Profesional profesional;
+    private @ManyToOne @NotNull Cliente cliente;
+    private @NotNull Character estado;
     private String comentario;
 
     public Reserva() {}

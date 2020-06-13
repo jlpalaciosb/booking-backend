@@ -1,6 +1,7 @@
 package com.example.agenda.models;
 
 import java.util.Objects;
+import javax.validation.constraints.NotNull;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,7 +10,7 @@ import javax.persistence.Id;
 public class Servicio implements Comparable<Servicio> {
 
     private @Id @GeneratedValue Long id;
-    private String nombre;
+    private @NotNull String nombre;
     private String descripcion;
 
     public Servicio() {}

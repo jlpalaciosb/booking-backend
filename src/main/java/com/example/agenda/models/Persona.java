@@ -3,17 +3,18 @@ package com.example.agenda.models;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @MappedSuperclass
 abstract class Persona {
 
     @Id @GeneratedValue Long id;
-    String documento;
-    String nombre;
-    String apellido;
-    String correo;
-    String telefono;
+    @NotNull String documento;
+    @NotNull String nombre;
+    @NotNull String apellido;
+    @NotNull String correo;
+    @NotNull String telefono;
     LocalDate fechaNacimiento;
 
     public Persona() {}
