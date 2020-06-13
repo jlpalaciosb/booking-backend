@@ -1,41 +1,41 @@
 package com.example.agenda.services;
 
-import com.example.agenda.models.Servicio;
-import com.example.agenda.repositories.ServicioRepository;
-import org.springframework.stereotype.Service;
+import com.example.agenda.models.Service;
+import com.example.agenda.repositories.ServiceRepository;
+
 import java.util.List;
 
-@Service
+@org.springframework.stereotype.Service
 public class ServicioServiceImpl implements ServicioService {
 
-    private final ServicioRepository servicioRepo;
+    private final ServiceRepository servicioRepo;
 
-    public ServicioServiceImpl(ServicioRepository servicioRepo) {
+    public ServicioServiceImpl(ServiceRepository servicioRepo) {
         this.servicioRepo = servicioRepo;
     }
 
     @Override
-    public List<Servicio> listarServicios() {
+    public List<Service> listarServicios() {
         return servicioRepo.findAll();
     }
 
     @Override
-    public Servicio obtenerServicio(Long id) {
+    public Service obtenerServicio(Long id) {
         return servicioRepo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("servicio", id));
     }
 
     @Override
-    public Servicio crearServicio(Servicio nuevoServicio) {
-        return servicioRepo.save(nuevoServicio);
+    public Service crearServicio(Service newService) {
+        return servicioRepo.save(newService);
     }
 
     @Override
-    public Servicio actualizarServicio(Long id, Servicio actualServicio) {
+    public Service actualizarServicio(Long id, Service actualService) {
         return servicioRepo.findById(id)
                 .map(servicio -> {
-                    servicio.setNombre(actualServicio.getNombre());
-                    servicio.setDescripcion(actualServicio.getDescripcion());
+                    servicio.setName(actualService.getName());
+                    servicio.setDescription(actualService.getDescription());
                     return servicioRepo.save(servicio);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("servicio", id));

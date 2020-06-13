@@ -1,12 +1,12 @@
 package com.example.agenda.services;
 
-import com.example.agenda.models.Servicio;
+import com.example.agenda.models.Service;
 import java.util.List;
 
 public interface ServicioService {
-    List<Servicio> listarServicios();
-    Servicio obtenerServicio(Long id);
-    Servicio crearServicio(Servicio nuevoServicio);
-    Servicio actualizarServicio(Long id, Servicio actualServicio);
+    List<Service> listarServicios();
+    Service obtenerServicio(Long id);
+    Service crearServicio(Service newService);
+    Service actualizarServicio(Long id, Service actualService);
     void eliminarServicio(Long id);
 }

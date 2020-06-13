@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.agenda.models.Servicio;
+import com.example.agenda.models.Service;
 
 @RestController
 class ServicioController {
@@ -21,23 +21,23 @@ class ServicioController {
     }
 
     @GetMapping("/servicios")
-    List<Servicio> listarServicios() {
+    List<Service> listarServicios() {
         return servicioService.listarServicios();
     }
 
     @GetMapping("/servicios/{id}")
-    Servicio obtenerServicio(@PathVariable Long id) {
+    Service obtenerServicio(@PathVariable Long id) {
         return servicioService.obtenerServicio(id);
     }
 
     @PostMapping("/servicios")
-    Servicio crearServicio(@RequestBody Servicio nuevoServicio) {
-        return servicioService.crearServicio(nuevoServicio);
+    Service crearServicio(@RequestBody Service newService) {
+        return servicioService.crearServicio(newService);
     }
 
     @PutMapping("/servicios/{id}")
-    Servicio actualizarServicio(@PathVariable Long id, @RequestBody Servicio actualServicio) {
-        return servicioService.actualizarServicio(id, actualServicio);
+    Service actualizarServicio(@PathVariable Long id, @RequestBody Service actualService) {
+        return servicioService.actualizarServicio(id, actualService);
     }
 
     @DeleteMapping("/servicios/{id}")

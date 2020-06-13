@@ -1,7 +1,7 @@
 package com.example.agenda.controllers;
 
 import java.util.List;
-import com.example.agenda.services.ReservaService;
+import com.example.agenda.services.AppointmentService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,39 +9,39 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.agenda.models.Reserva;
+import com.example.agenda.models.Appointment;
 
 @RestController
 class ReservaController {
 
-    private final ReservaService reservaService;
+    private final AppointmentService appointmentService;
 
-    ReservaController(ReservaService reservaService) {
-        this.reservaService = reservaService;
+    ReservaController(AppointmentService appointmentService) {
+        this.appointmentService = appointmentService;
     }
 
     @GetMapping("/reservas")
-    List<Reserva> listarReservas() {
-        return reservaService.listarReservas();
+    List<Appointment> listarReservas() {
+        return appointmentService.listAppointments();
     }
 
     @GetMapping("/reservas/{id}")
-    Reserva obtenerReserva(@PathVariable Long id) {
-        return reservaService.obtenerReserva(id);
+    Appointment obtenerReserva(@PathVariable Long id) {
+        return appointmentService.getAppointment(id);
     }
 
     @PostMapping("/reservas")
-    Reserva crearReserva(@RequestBody Reserva nuevoReserva) {
-        return reservaService.crearReserva(nuevoReserva);
+    Appointment crearReserva(@RequestBody Appointment newAppointment) {
+        return appointmentService.createAppointment(newAppointment);
     }
 
     @PutMapping("/reservas/{id}")
-    Reserva actualizarReserva(@PathVariable Long id, @RequestBody Reserva actualReserva) {
-        return reservaService.actualizarReserva(id, actualReserva);
+    Appointment actualizarReserva(@PathVariable Long id, @RequestBody Appointment actualAppointment) {
+        return appointmentService.updateAppointment(id, actualAppointment);
     }
 
     @DeleteMapping("/reservas/{id}")
     void eliminarReserva(@PathVariable Long id) {
-        reservaService.eliminarReserva(id);
+        appointmentService.deleteAppointment(id);
     }
 }
