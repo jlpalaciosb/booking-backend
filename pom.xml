@@ -9,11 +9,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>agenda-backend</artifactId>
+	<artifactId>booking-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>agenda-backend</name>
-	<description>Administrador de reservas</description>
+	<name>booking-backend</name>
+	<description>Appointment Booking Backend</description>
 
 	<properties>
 		<java.version>1.8</java.version>
