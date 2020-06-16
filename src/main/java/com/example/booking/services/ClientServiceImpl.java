@@ -34,14 +34,14 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client updateClient(Long id, Client actualClient) {
         return clientRepo.findById(id)
-                .map(cliente -> {
-                    cliente.setDocument(actualClient.getDocument());
-                    cliente.setFirstName(actualClient.getFirstName());
-                    cliente.setLastName(actualClient.getLastName());
-                    cliente.setEmail(actualClient.getEmail());
-                    cliente.setPhoneNumber(actualClient.getPhoneNumber());
-                    cliente.setBirthdate(actualClient.getBirthdate());
-                    return clientRepo.save(cliente);
+                .map(client -> {
+                    client.setDocument(actualClient.getDocument());
+                    client.setFirstName(actualClient.getFirstName());
+                    client.setLastName(actualClient.getLastName());
+                    client.setEmail(actualClient.getEmail());
+                    client.setPhoneNumber(actualClient.getPhoneNumber());
+                    client.setBirthdate(actualClient.getBirthdate());
+                    return clientRepo.save(client);
                 })
                 .orElseThrow(() -> new NotFoundException("client", id));
     }

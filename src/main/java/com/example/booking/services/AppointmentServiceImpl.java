@@ -34,16 +34,16 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public Appointment updateAppointment(Long id, Appointment actualAppointment) {
         return appointmentRepo.findById(id)
-                .map(reserva -> {
-                    reserva.setDate(actualAppointment.getDate());
-                    reserva.setStartTime(actualAppointment.getStartTime());
-                    reserva.setFinishTime(actualAppointment.getFinishTime());
-                    reserva.setService(actualAppointment.getService());
-                    reserva.setProfessional(actualAppointment.getProfessional());
-                    reserva.setClient(actualAppointment.getClient());
-                    reserva.setState(actualAppointment.getState());
-                    reserva.setComment(actualAppointment.getComment());
-                    return appointmentRepo.save(reserva);
+                .map(appointment -> {
+                    appointment.setDate(actualAppointment.getDate());
+                    appointment.setStartTime(actualAppointment.getStartTime());
+                    appointment.setFinishTime(actualAppointment.getFinishTime());
+                    appointment.setService(actualAppointment.getService());
+                    appointment.setProfessional(actualAppointment.getProfessional());
+                    appointment.setClient(actualAppointment.getClient());
+                    appointment.setState(actualAppointment.getState());
+                    appointment.setComment(actualAppointment.getComment());
+                    return appointmentRepo.save(appointment);
                 })
                 .orElseThrow(() -> new NotFoundException("appointment", id));
     }

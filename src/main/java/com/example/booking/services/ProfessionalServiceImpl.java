@@ -34,14 +34,14 @@ public class ProfessionalServiceImpl implements ProfessionalService {
     @Override
     public Professional updateProfessional(Long id, Professional actualProfessional) {
         return professionalRepo.findById(id)
-                .map(profesional -> {
-                    profesional.setDocument(actualProfessional.getDocument());
-                    profesional.setFirstName(actualProfessional.getFirstName());
-                    profesional.setLastName(actualProfessional.getLastName());
-                    profesional.setEmail(actualProfessional.getEmail());
-                    profesional.setPhoneNumber(actualProfessional.getPhoneNumber());
-                    profesional.setBirthdate(actualProfessional.getBirthdate());
-                    return professionalRepo.save(profesional);
+                .map(professional -> {
+                    professional.setDocument(actualProfessional.getDocument());
+                    professional.setFirstName(actualProfessional.getFirstName());
+                    professional.setLastName(actualProfessional.getLastName());
+                    professional.setEmail(actualProfessional.getEmail());
+                    professional.setPhoneNumber(actualProfessional.getPhoneNumber());
+                    professional.setBirthdate(actualProfessional.getBirthdate());
+                    return professionalRepo.save(professional);
                 })
                 .orElseThrow(() -> new NotFoundException("professional", id));
     }
