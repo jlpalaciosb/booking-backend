@@ -1,10 +1,6 @@
 package com.example.booking.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
@@ -13,13 +9,13 @@ import java.util.Objects;
 public class Appointment {
 
     private @Id @GeneratedValue Long id;
-    private @NotNull LocalDate date;
-    private @NotNull LocalTime startTime;
-    private @NotNull LocalTime finishTime;
-    private @ManyToOne @NotNull Service service;
-    private @ManyToOne @NotNull Professional professional;
-    private @ManyToOne @NotNull Client client;
-    private @NotNull Character state;
+    private @Column(nullable = false) LocalDate date;
+    private @Column(nullable = false) LocalTime startTime;
+    private @Column(nullable = false) LocalTime finishTime;
+    private @ManyToOne(optional = false) Service service;
+    private @ManyToOne(optional = false) Professional professional;
+    private @ManyToOne(optional = false) Client client;
+    private @Column(nullable = false) Character state;
     private String comment;
 
     public Appointment() {}

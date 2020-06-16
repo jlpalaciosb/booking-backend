@@ -1,20 +1,20 @@
 package com.example.booking.models;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @MappedSuperclass
 abstract class Person {
 
     @Id @GeneratedValue Long id;
-    @NotNull String document;
-    @NotNull String firstName;
-    @NotNull String lastName;
-    @NotNull String email;
-    @NotNull String phoneNumber;
+    @Column(nullable = false, unique = true) String document;
+    @Column(nullable = false) String firstName;
+    @Column(nullable = false) String lastName;
+    @Column(nullable = false, unique = true) String email;
+    @Column(nullable = false, unique = true) String phoneNumber;
     LocalDate birthdate;
 
     public Person() {}

@@ -1,7 +1,7 @@
 package com.example.booking.models;
 
 import java.util.Objects;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,7 +10,7 @@ import javax.persistence.Id;
 public class Service implements Comparable<Service> {
 
     private @Id @GeneratedValue Long id;
-    private @NotNull String name;
+    private @Column(nullable = false, unique = true) String name;
     private String description;
 
     public Service() {}

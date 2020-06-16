@@ -9,8 +9,7 @@ import java.util.TreeSet;
 @Entity
 public class Professional extends Person {
 
-    @ManyToMany
-    private Set<Service> services = new TreeSet<>();
+    private @ManyToMany Set<Service> services = new TreeSet<>();
 
     public Professional() {}
 
