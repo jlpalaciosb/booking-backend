@@ -2,6 +2,7 @@ package com.example.booking.services;
 
 import com.example.booking.models.Service;
 import com.example.booking.repositories.ServiceRepository;
+import com.example.booking.services.errors.NotFoundException;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class ServiceServiceImpl implements ServiceService {
     @Override
     public Service getService(Long id) {
         return serviceRepo.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("service", id));
+                .orElseThrow(() -> new NotFoundException("service", id));
     }
 
     @Override
@@ -38,7 +39,7 @@ public class ServiceServiceImpl implements ServiceService {
                     servicio.setDescription(actualService.getDescription());
                     return serviceRepo.save(servicio);
                 })
-                .orElseThrow(() -> new EntityNotFoundException("service", id));
+                .orElseThrow(() -> new NotFoundException("service", id));
     }
 
     @Override
@@ -46,7 +47,7 @@ public class ServiceServiceImpl implements ServiceService {
         if (serviceRepo.existsById(id)) {
             serviceRepo.deleteById(id);
         } else {
-            throw new EntityNotFoundException("service", id);
+            throw new NotFoundException("service", id);
         }
     }
 }

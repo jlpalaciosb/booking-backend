@@ -2,6 +2,7 @@ package com.example.booking.services;
 
 import com.example.booking.models.Client;
 import com.example.booking.repositories.ClientRepository;
+import com.example.booking.services.errors.NotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client getClient(Long id) {
         return clientRepo.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("client", id));
+                .orElseThrow(() -> new NotFoundException("client", id));
     }
 
     @Override
@@ -42,7 +43,7 @@ public class ClientServiceImpl implements ClientService {
                     cliente.setBirthdate(actualClient.getBirthdate());
                     return clientRepo.save(cliente);
                 })
-                .orElseThrow(() -> new EntityNotFoundException("client", id));
+                .orElseThrow(() -> new NotFoundException("client", id));
     }
 
     @Override
@@ -50,7 +51,7 @@ public class ClientServiceImpl implements ClientService {
         if (clientRepo.existsById(id)) {
             clientRepo.deleteById(id);
         } else {
-            throw new EntityNotFoundException("client", id);
+            throw new NotFoundException("client", id);
         }
     }
 }

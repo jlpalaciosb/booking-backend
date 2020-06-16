@@ -2,6 +2,7 @@ package com.example.booking.services;
 
 import com.example.booking.models.Professional;
 import com.example.booking.repositories.ProfessionalRepository;
+import com.example.booking.services.errors.NotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class ProfessionalServiceImpl implements ProfessionalService {
     @Override
     public Professional getProfessional(Long id) {
         return professionalRepo.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("professional", id));
+                .orElseThrow(() -> new NotFoundException("professional", id));
     }
 
     @Override
@@ -42,7 +43,7 @@ public class ProfessionalServiceImpl implements ProfessionalService {
                     profesional.setBirthdate(actualProfessional.getBirthdate());
                     return professionalRepo.save(profesional);
                 })
-                .orElseThrow(() -> new EntityNotFoundException("professional", id));
+                .orElseThrow(() -> new NotFoundException("professional", id));
     }
 
     @Override
@@ -50,7 +51,7 @@ public class ProfessionalServiceImpl implements ProfessionalService {
         if (professionalRepo.existsById(id)) {
             professionalRepo.deleteById(id);
         } else {
-            throw new EntityNotFoundException("professional", id);
+            throw new NotFoundException("professional", id);
         }
     }
 }
