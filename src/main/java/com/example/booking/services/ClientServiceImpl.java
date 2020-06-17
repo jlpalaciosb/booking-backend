@@ -23,8 +23,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client getClient(Long id) {
-        return clientRepo.findById(id)
-                .orElseThrow(() -> new NotFoundException("client", id));
+        return clientRepo.findById(id).orElseThrow(() -> new NotFoundException("client", id));
     }
 
     @Override
