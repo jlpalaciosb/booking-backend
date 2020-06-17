@@ -55,7 +55,11 @@ public class ServiceServiceImpl implements ServiceService {
     @Override
     public void deleteService(Long id) {
         Service service = serviceRepo.findById(id).orElseThrow(() -> new NotFoundException("service", id));
-        // TODO: validación
-        serviceRepo.delete(service);
+        if (serviceRepo.existsAppointmentWithService(service)) {
+            throw new BadRequestException("There is/are appointment/s associated with this service");
+        } else {
+            serviceRepo.removeFromProfessionalsServices(service);
+            serviceRepo.delete(service);
+        }
     }
 }

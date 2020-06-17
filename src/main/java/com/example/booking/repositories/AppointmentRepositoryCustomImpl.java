@@ -8,10 +8,10 @@ import javax.persistence.PersistenceContext;
 
 @Repository
 @Transactional(readOnly = true)
-public class AppointmentRespositoryCustomImpl implements AppointmentRepositoryCustom {
+public class AppointmentRepositoryCustomImpl implements AppointmentRepositoryCustom {
 
     @PersistenceContext
-    EntityManager entityManager;
+    EntityManager em;
 
     @Override
     public Appointment getByCriteria(String criteria) {
