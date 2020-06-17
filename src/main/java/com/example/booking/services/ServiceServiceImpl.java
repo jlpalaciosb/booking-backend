@@ -28,28 +28,17 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     public Service createService(Service newService) {
-        if (newService.getName() == null) {
-            throw new BadRequestException("Set service name");
-        } else if (serviceRepo.existsByName(newService.getName())) {
-            throw new BadRequestException("There is already a service with name = " + newService.getName());
-        } else {
-            return serviceRepo.save(newService);
-        }
+        validate(null, newService);
+        return serviceRepo.save(newService);
     }
 
     @Override
     public Service updateService(Long id, Service actualService) {
         Service service = serviceRepo.findById(id).orElseThrow(() -> new NotFoundException("service", id));
-        if (actualService.getName() == null) {
-            throw new BadRequestException("Set service name");
-        } else if (!service.getName().equals(actualService.getName()) &&
-                serviceRepo.existsByName(actualService.getName())) {
-            throw new BadRequestException("There is already another service with name = " + actualService.getName());
-        } else {
-            service.setName(actualService.getName());
-            service.setDescription(actualService.getDescription());
-            return serviceRepo.save(service);
-        }
+        validate(service, actualService);
+        service.setName(actualService.getName());
+        service.setDescription(actualService.getDescription());
+        return serviceRepo.save(service);
     }
 
     @Override
@@ -60,6 +49,17 @@ public class ServiceServiceImpl implements ServiceService {
         } else {
             serviceRepo.removeFromProfessionalsServices(service);
             serviceRepo.delete(service);
+        }
+    }
+
+    // oldService == null ? creating : updating
+    private void validate(Service oldService, Service newService) {
+        if (newService.getName() == null) {
+            throw new BadRequestException("Set service name");
+        }
+        if ((oldService == null || !oldService.getName().equals(newService.getName())) &&
+                serviceRepo.existsByName(newService.getName())) {
+            throw new BadRequestException("There is another service with name = " + newService.getName());
         }
     }
 }
