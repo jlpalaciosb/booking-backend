@@ -44,14 +44,12 @@ public class Service implements Comparable<Service> {
         if (this == o) return true;
         if (!(o instanceof Service)) return false;
         Service service = (Service) o;
-        return Objects.equals(this.id, service.id) &&
-                Objects.equals(this.name, service.name) &&
-                Objects.equals(this.description, service.description);
+        return Objects.equals(this.id, service.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.name, this.description);
+        return Objects.hash(this.id);
     }
 
     @Override
@@ -64,6 +62,6 @@ public class Service implements Comparable<Service> {
 
     @Override
     public int compareTo(Service service) {
-        return this.name.compareTo(service.name);
+        return this.id.compareTo(service.id);
     }
 }

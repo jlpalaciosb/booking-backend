@@ -97,21 +97,12 @@ public class Appointment {
         if (this == o) return true;
         if (!(o instanceof Appointment)) return false;
         Appointment appointment = (Appointment) o;
-        return Objects.equals(this.id, appointment.id) &&
-                Objects.equals(this.date, appointment.date) &&
-                Objects.equals(this.startTime, appointment.startTime) &&
-                Objects.equals(this.finishTime, appointment.finishTime) &&
-                Objects.equals(this.service, appointment.service) &&
-                Objects.equals(this.professional, appointment.professional) &&
-                Objects.equals(this.client, appointment.client) &&
-                Objects.equals(this.state, appointment.state) &&
-                Objects.equals(this.comment, appointment.comment);
+        return Objects.equals(this.id, appointment.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.date, this.startTime, this.finishTime, this.service, this.professional,
-                this.client, this.state, this.comment);
+        return Objects.hash(this.id);
     }
 
     @Override

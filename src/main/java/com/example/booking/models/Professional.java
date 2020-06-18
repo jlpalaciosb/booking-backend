@@ -26,19 +26,12 @@ public class Professional extends Person {
         if (this == o) return true;
         if (!(o instanceof Professional)) return false;
         Professional professional = (Professional) o;
-        return Objects.equals(this.id, professional.id) &&
-                Objects.equals(this.document, professional.document) &&
-                Objects.equals(this.firstName, professional.firstName) &&
-                Objects.equals(this.lastName, professional.lastName) &&
-                Objects.equals(this.email, professional.email) &&
-                Objects.equals(this.phoneNumber, professional.phoneNumber) &&
-                Objects.equals(this.birthdate, professional.birthdate);
+        return Objects.equals(this.id, professional.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.firstName, this.firstName, this.lastName, this.email, this.phoneNumber,
-                this.birthdate);
+        return Objects.hash(this.id);
     }
 
     @Override
