@@ -21,4 +21,12 @@ public class ProfessionalRepositoryCustomImpl implements ProfessionalRepositoryC
         q.setParameter("pid", professional.getId());
         return (long) q.getSingleResult() >= 1;
     }
+
+    @Override
+    public boolean existsServiceWithId(Long id) {
+        Query q = em.createQuery(
+                "select count(s) from Service s where s.id = :sid");
+        q.setParameter("sid", id);
+        return (long) q.getSingleResult() >= 1;
+    }
 }

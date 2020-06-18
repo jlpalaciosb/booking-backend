@@ -1,13 +1,14 @@
 package com.example.booking.services;
 
 import com.example.booking.models.Professional;
+import com.example.booking.models.Service;
 import com.example.booking.repositories.ProfessionalRepository;
 import com.example.booking.services.errors.BadRequestException;
 import com.example.booking.services.errors.NotFoundException;
-import org.springframework.stereotype.Service;
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
-@Service
+@org.springframework.stereotype.Service
 public class ProfessionalServiceImpl implements ProfessionalService {
 
     private final ProfessionalRepository professionalRepo;
@@ -55,6 +56,32 @@ public class ProfessionalServiceImpl implements ProfessionalService {
         } else {
             professionalRepo.delete(professional);
         }
+    }
+
+    @Override
+    public void addServices(Long id, List<Service> services) {
+        Professional professional = professionalRepo.findById(id)
+                .orElseThrow(() -> new NotFoundException("professional", id));
+
+        // some validation
+        for (Service s : services) {
+            if (s.getId() == null) {
+                throw new BadRequestException("Set service id");
+            } else if (!professionalRepo.existsServiceWithId(s.getId())) {
+                throw new BadRequestException("Unable to find service with id " + s.getId());
+            }
+        }
+
+        professional.getServices().addAll(services);
+        professionalRepo.save(professional);
+    }
+
+    @Override
+    public void removeServices(Long id, List<Service> services) {
+        Professional professional = professionalRepo.findById(id)
+                .orElseThrow(() -> new NotFoundException("professional", id));
+        professional.getServices().removeAll(services);
+        professionalRepo.save(professional);
     }
 
     // oldProfessional == null ? creating : updating

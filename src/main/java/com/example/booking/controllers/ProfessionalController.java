@@ -1,6 +1,8 @@
 package com.example.booking.controllers;
 
 import java.util.List;
+
+import com.example.booking.models.Service;
 import com.example.booking.services.ProfessionalService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,5 +45,15 @@ class ProfessionalController {
     @DeleteMapping("/professionals/{id}")
     void deleteProfessional(@PathVariable Long id) {
         professionalService.deleteProfessional(id);
+    }
+
+    @PostMapping("/professionals/{id}/services")
+    void addServices(@PathVariable Long id, @RequestBody List<Service> services) {
+        professionalService.addServices(id, services);
+    }
+
+    @DeleteMapping("/professionals/{id}/services")
+    void removeServices(@PathVariable Long id, @RequestBody List<Service> services) {
+        professionalService.removeServices(id, services);
     }
 }
