@@ -57,21 +57,6 @@ public class ClientServiceImpl implements ClientService {
 
     // oldClient == null ? creating : updating
     private void validate(Client oldClient, Client newClient) {
-        if (newClient.getDocument() == null) {
-            throw new BadRequestException("Set client document");
-        }
-        if (newClient.getFirstName() == null) {
-            throw new BadRequestException("Set client first name");
-        }
-        if (newClient.getLastName() == null) {
-            throw new BadRequestException("Set client last name");
-        }
-        if (newClient.getEmail() == null) {
-            throw new BadRequestException("Set client email");
-        }
-        if (newClient.getPhoneNumber() == null) {
-            throw new BadRequestException("Set client phone number");
-        }
         if ((oldClient == null || !oldClient.getDocument().equals(newClient.getDocument())) &&
                 clientRepo.existsByDocument(newClient.getDocument())) {
             throw new BadRequestException("There is another client with document = " + newClient.getDocument());

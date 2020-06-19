@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.booking.models.Appointment;
+import javax.validation.Valid;
 
 @RestController
 class AppointmentController {
@@ -31,12 +32,12 @@ class AppointmentController {
     }
 
     @PostMapping("/appointments")
-    Appointment createAppointment(@RequestBody Appointment newAppointment) {
+    Appointment createAppointment(@RequestBody @Valid Appointment newAppointment) {
         return appointmentService.createAppointment(newAppointment);
     }
 
     @PutMapping("/appointments/{id}")
-    Appointment updateAppointment(@PathVariable Long id, @RequestBody Appointment actualAppointment) {
+    Appointment updateAppointment(@PathVariable Long id, @RequestBody @Valid Appointment actualAppointment) {
         return appointmentService.updateAppointment(id, actualAppointment);
     }
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.booking.models.Professional;
+import javax.validation.Valid;
 
 @RestController
 class ProfessionalController {
@@ -33,12 +34,12 @@ class ProfessionalController {
     }
 
     @PostMapping("/professionals")
-    Professional createProfessional(@RequestBody Professional newProfessional) {
+    Professional createProfessional(@RequestBody @Valid Professional newProfessional) {
         return professionalService.createProfessional(newProfessional);
     }
 
     @PutMapping("/professionals/{id}")
-    Professional updateProfessional(@PathVariable Long id, @RequestBody Professional actualProfessional) {
+    Professional updateProfessional(@PathVariable @Valid Long id, @RequestBody Professional actualProfessional) {
         return professionalService.updateProfessional(id, actualProfessional);
     }
 

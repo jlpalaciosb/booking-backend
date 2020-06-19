@@ -54,9 +54,6 @@ public class ServiceServiceImpl implements ServiceService {
 
     // oldService == null ? creating : updating
     private void validate(Service oldService, Service newService) {
-        if (newService.getName() == null) {
-            throw new BadRequestException("Set service name");
-        }
         if ((oldService == null || !oldService.getName().equals(newService.getName())) &&
                 serviceRepo.existsByName(newService.getName())) {
             throw new BadRequestException("There is another service with name = " + newService.getName());

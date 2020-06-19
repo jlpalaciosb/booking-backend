@@ -1,11 +1,12 @@
 package com.example.booking.services.errors;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -31,6 +32,17 @@ public class ClientErrorAdvice {
         r.put("status", HttpStatus.BAD_REQUEST.value());
         r.put("error", HttpStatus.BAD_REQUEST.getReasonPhrase());
         r.put("message", ex.getMessage());
+        return r;
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, Object> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, Object> r = new LinkedHashMap<>();
+        r.put("status", HttpStatus.BAD_REQUEST.value());
+        r.put("error", HttpStatus.BAD_REQUEST.getReasonPhrase());
+        r.put("message", ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
         return r;
     }
 }

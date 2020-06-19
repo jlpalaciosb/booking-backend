@@ -5,12 +5,19 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Service implements Comparable<Service> {
 
-    private @Id @GeneratedValue Long id;
-    private @Column(nullable = false, unique = true) String name;
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    @NotBlank(message = "Name is mandatory")
+    private String name;
+
     private String description;
 
     public Service() {}

@@ -1,6 +1,8 @@
 package com.example.booking.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
@@ -8,15 +10,35 @@ import java.util.Objects;
 @Entity
 public class Appointment {
 
-    private @Id @GeneratedValue Long id;
-    private @Column(nullable = false) LocalDate date;
-    private @Column(nullable = false) LocalTime startTime;
-    private @Column(nullable = false) LocalTime finishTime;
-    private @ManyToOne(optional = false) Service service;
-    private @ManyToOne(optional = false) Professional professional;
-    private @ManyToOne(optional = false) Client client;
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @NotNull(message = "Date is mandatory")
+    private LocalDate date;
+
+    @NotNull(message = "Start time is mandatory")
+    private LocalTime startTime;
+
+    @NotNull(message = "Finish time is mandatory")
+    private LocalTime finishTime;
+
+    @NotNull(message = "Service is mandatory")
+    @ManyToOne(optional = false)
+    private Service service;
+
+    @NotNull(message = "Client is mandatory")
+    @ManyToOne(optional = false)
+    private Client client;
+
+    @NotNull(message = "Professional is mandatory")
+    @ManyToOne(optional = false)
+    private Professional professional;
+
     // Valid States: S (scheduled), Y (attended), N (did not attend)
-    private @Column(nullable = false) Character state;
+    @NotNull(message = "State is mandatory")
+    private Character state;
+
     private String comment;
 
     public Appointment() {}
@@ -61,20 +83,20 @@ public class Appointment {
         this.service = service;
     }
 
-    public Professional getProfessional() {
-        return professional;
-    }
-
-    public void setProfessional(Professional professional) {
-        this.professional = professional;
-    }
-
     public Client getClient() {
         return client;
     }
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Professional getProfessional() {
+        return professional;
+    }
+
+    public void setProfessional(Professional professional) {
+        this.professional = professional;
     }
 
     public Character getState() {

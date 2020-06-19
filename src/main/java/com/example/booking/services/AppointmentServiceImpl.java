@@ -28,7 +28,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public Appointment createAppointment(Appointment newAppointment) {
-        newAppointment.setState('S');
         validate(null, newAppointment);
         return appointmentRepo.save(newAppointment);
     }
@@ -60,27 +59,18 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     // oldAppointment == null ? creating : updating
     private void validate(Appointment oldAppointment, Appointment newAppointment) {
-        if (newAppointment.getDate() == null) {
-            throw new BadRequestException("Set appointment date");
+        if (newAppointment.getService().getId() == null) {
+            throw new BadRequestException("Set service id");
         }
-        if (newAppointment.getStartTime() == null) {
-            throw new BadRequestException("Set appointment start time");
+        if (newAppointment.getClient().getId() == null) {
+            throw new BadRequestException("Set client id");
         }
-        if (newAppointment.getFinishTime() == null) {
-            throw new BadRequestException("Set appointment finish time");
-        }
-        if (newAppointment.getService() == null || newAppointment.getService().getId() == null) {
-            throw new BadRequestException("Set appointment service (id)");
-        }
-        if (newAppointment.getClient() == null || newAppointment.getClient().getId() == null) {
-            throw new BadRequestException("Set appointment client (id)");
-        }
-        if (newAppointment.getProfessional() == null || newAppointment.getProfessional().getId() == null) {
-            throw new BadRequestException("Set appointment professional (id)");
+        if (newAppointment.getProfessional().getId() == null) {
+            throw new BadRequestException("Set professional id");
         }
         Character nas = newAppointment.getState();
-        if (nas == null || !(nas.equals('S') || nas.equals('Y') || nas.equals('N'))) {
-            throw new BadRequestException("Set appointment state (S/Y/N)");
+        if (!(nas.equals('S') || nas.equals('Y') || nas.equals('N'))) {
+            throw new BadRequestException("Set a correct state (S/Y/N)");
         }
         if (!(newAppointment.getStartTime().compareTo(newAppointment.getFinishTime()) < 0)) {
             throw new BadRequestException("Start time must be less than finish time");

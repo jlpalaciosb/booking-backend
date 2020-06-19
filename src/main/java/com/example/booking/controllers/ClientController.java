@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.booking.models.Client;
+import javax.validation.Valid;
 
 @RestController
 class ClientController {
@@ -31,12 +32,12 @@ class ClientController {
     }
 
     @PostMapping("/clients")
-    Client createClient(@RequestBody Client newClient) {
+    Client createClient(@RequestBody @Valid Client newClient) {
         return clientService.createClient(newClient);
     }
 
     @PutMapping("/clients/{id}")
-    Client updateClient(@PathVariable Long id, @RequestBody Client actualClient) {
+    Client updateClient(@PathVariable Long id, @RequestBody @Valid Client actualClient) {
         return clientService.updateClient(id, actualClient);
     }
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.booking.models.Service;
+import javax.validation.Valid;
 
 @RestController
 class ServiceController {
@@ -31,12 +32,12 @@ class ServiceController {
     }
 
     @PostMapping("/services")
-    Service createService(@RequestBody Service newService) {
+    Service createService(@RequestBody @Valid Service newService) {
         return serviceService.createService(newService);
     }
 
     @PutMapping("/services/{id}")
-    Service updateService(@PathVariable Long id, @RequestBody Service actualService) {
+    Service updateService(@PathVariable Long id, @RequestBody @Valid Service actualService) {
         return serviceService.updateService(id, actualService);
     }
 

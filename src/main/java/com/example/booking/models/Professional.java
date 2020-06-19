@@ -11,7 +11,9 @@ import java.util.TreeSet;
 @Entity
 public class Professional extends Person {
 
-    private @ManyToMany @JsonIgnore Set<Service> services = new TreeSet<>();
+    @ManyToMany
+    @JsonIgnore
+    private Set<Service> services = new TreeSet<>();
 
     public Professional() {}
 
@@ -28,19 +30,19 @@ public class Professional extends Person {
         if (this == o) return true;
         if (!(o instanceof Professional)) return false;
         Professional professional = (Professional) o;
-        return Objects.equals(this.id, professional.id);
+        return Objects.equals(this.getId(), professional.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id);
+        return Objects.hash(this.getId());
     }
 
     @Override
     public String toString() {
         return "Professional{" +
-                "id=" + this.id + ", " +
-                "firstName='" + this.firstName + "', " +
-                "lastName='" + this.lastName + "'}";
+                "id=" + this.getId() + ", " +
+                "firstName='" + this.getFirstName() + "', " +
+                "lastName='" + this.getLastName() + "'}";
     }
 }

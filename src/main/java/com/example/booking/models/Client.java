@@ -13,19 +13,19 @@ public class Client extends Person {
         if (this == o) return true;
         if (!(o instanceof Client)) return false;
         Client client = (Client) o;
-        return Objects.equals(this.id, client.id);
+        return Objects.equals(this.getId(), client.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id);
+        return Objects.hash(this.getId());
     }
 
     @Override
     public String toString() {
         return "Client{" +
-                "id=" + this.id + ", " +
-                "firstName='" + this.firstName + "', " +
-                "lastName='" + this.lastName + "'}";
+                "id=" + this.getId() + ", " +
+                "firstName='" + this.getFirstName() + "', " +
+                "lastName='" + this.getLastName() + "'}";
     }
 }

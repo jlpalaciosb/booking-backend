@@ -93,21 +93,6 @@ public class ProfessionalServiceImpl implements ProfessionalService {
 
     // oldProfessional == null ? creating : updating
     private void validate(Professional oldProfessional, Professional newProfessional) {
-        if (newProfessional.getDocument() == null) {
-            throw new BadRequestException("Set professional document");
-        }
-        if (newProfessional.getFirstName() == null) {
-            throw new BadRequestException("Set professional first name");
-        }
-        if (newProfessional.getLastName() == null) {
-            throw new BadRequestException("Set professional last name");
-        }
-        if (newProfessional.getEmail() == null) {
-            throw new BadRequestException("Set professional email");
-        }
-        if (newProfessional.getPhoneNumber() == null) {
-            throw new BadRequestException("Set professional phone number");
-        }
         if ((oldProfessional == null || !oldProfessional.getDocument().equals(newProfessional.getDocument())) &&
                 professionalRepo.existsByDocument(newProfessional.getDocument())) {
             throw new BadRequestException("There is another professional with document = " + newProfessional.getDocument());
