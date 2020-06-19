@@ -5,8 +5,8 @@ import com.example.booking.models.Service;
 import com.example.booking.repositories.ProfessionalRepository;
 import com.example.booking.services.errors.BadRequestException;
 import com.example.booking.services.errors.NotFoundException;
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Set;
 
 @org.springframework.stereotype.Service
 public class ProfessionalServiceImpl implements ProfessionalService {
@@ -56,6 +56,13 @@ public class ProfessionalServiceImpl implements ProfessionalService {
         } else {
             professionalRepo.delete(professional);
         }
+    }
+
+    @Override
+    public Set<Service> listServices(Long id) {
+        Professional professional = professionalRepo.findById(id)
+                .orElseThrow(() -> new NotFoundException("professional", id));
+        return professional.getServices();
     }
 
     @Override

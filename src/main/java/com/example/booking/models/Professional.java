@@ -1,5 +1,7 @@
 package com.example.booking.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import java.util.Objects;
@@ -9,7 +11,7 @@ import java.util.TreeSet;
 @Entity
 public class Professional extends Person {
 
-    private @ManyToMany Set<Service> services = new TreeSet<>();
+    private @ManyToMany @JsonIgnore Set<Service> services = new TreeSet<>();
 
     public Professional() {}
 

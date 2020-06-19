@@ -15,6 +15,7 @@ public class Appointment {
     private @ManyToOne(optional = false) Service service;
     private @ManyToOne(optional = false) Professional professional;
     private @ManyToOne(optional = false) Client client;
+    // Valid States: S (scheduled), Y (attended), N (did not attend)
     private @Column(nullable = false) Character state;
     private String comment;
 
