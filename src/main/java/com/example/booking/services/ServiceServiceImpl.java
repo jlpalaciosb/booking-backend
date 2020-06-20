@@ -52,9 +52,9 @@ public class ServiceServiceImpl implements ServiceService {
         }
     }
 
-    // oldService == null ? creating : updating
     private void validate(Service oldService, Service newService) {
-        if ((oldService == null || !oldService.getName().equals(newService.getName())) &&
+        boolean creating = (oldService == null);
+        if ((creating || !oldService.getName().equals(newService.getName())) &&
                 serviceRepo.existsByName(newService.getName())) {
             throw new BadRequestException("There is another service with name = " + newService.getName());
         }

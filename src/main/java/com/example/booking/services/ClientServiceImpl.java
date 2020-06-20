@@ -55,17 +55,17 @@ public class ClientServiceImpl implements ClientService {
         }
     }
 
-    // oldClient == null ? creating : updating
     private void validate(Client oldClient, Client newClient) {
-        if ((oldClient == null || !oldClient.getDocument().equals(newClient.getDocument())) &&
+        boolean creating = (oldClient == null);
+        if ((creating || !oldClient.getDocument().equals(newClient.getDocument())) &&
                 clientRepo.existsByDocument(newClient.getDocument())) {
             throw new BadRequestException("There is another client with document = " + newClient.getDocument());
         }
-        if ((oldClient == null || !oldClient.getEmail().equals(newClient.getEmail())) &&
+        if ((creating || !oldClient.getEmail().equals(newClient.getEmail())) &&
                 clientRepo.existsByEmail(newClient.getEmail())) {
             throw new BadRequestException("There is another client with email = " + newClient.getEmail());
         }
-        if ((oldClient == null || !oldClient.getPhoneNumber().equals(newClient.getPhoneNumber())) &&
+        if ((creating || !oldClient.getPhoneNumber().equals(newClient.getPhoneNumber())) &&
                 clientRepo.existsByPhoneNumber(newClient.getPhoneNumber())) {
             throw new BadRequestException("There is another client with phone number = " + newClient.getPhoneNumber());
         }

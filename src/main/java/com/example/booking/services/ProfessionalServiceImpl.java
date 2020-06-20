@@ -91,19 +91,21 @@ public class ProfessionalServiceImpl implements ProfessionalService {
         professionalRepo.save(professional);
     }
 
-    // oldProfessional == null ? creating : updating
     private void validate(Professional oldProfessional, Professional newProfessional) {
-        if ((oldProfessional == null || !oldProfessional.getDocument().equals(newProfessional.getDocument())) &&
+        boolean creating = (oldProfessional == null);
+        if ((creating || !oldProfessional.getDocument().equals(newProfessional.getDocument())) &&
                 professionalRepo.existsByDocument(newProfessional.getDocument())) {
-            throw new BadRequestException("There is another professional with document = " + newProfessional.getDocument());
+            throw new BadRequestException(
+                    "There is another professional with document = " + newProfessional.getDocument());
         }
-        if ((oldProfessional == null || !oldProfessional.getEmail().equals(newProfessional.getEmail())) &&
+        if ((creating || !oldProfessional.getEmail().equals(newProfessional.getEmail())) &&
                 professionalRepo.existsByEmail(newProfessional.getEmail())) {
             throw new BadRequestException("There is another professional with email = " + newProfessional.getEmail());
         }
-        if ((oldProfessional == null || !oldProfessional.getPhoneNumber().equals(newProfessional.getPhoneNumber())) &&
+        if ((creating || !oldProfessional.getPhoneNumber().equals(newProfessional.getPhoneNumber())) &&
                 professionalRepo.existsByPhoneNumber(newProfessional.getPhoneNumber())) {
-            throw new BadRequestException("There is another professional with phone number = " + newProfessional.getPhoneNumber());
+            throw new BadRequestException(
+                    "There is another professional with phone number = " + newProfessional.getPhoneNumber());
         }
     }
 }
