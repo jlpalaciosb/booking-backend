@@ -2,8 +2,8 @@ package com.example.booking.services;
 
 import com.example.booking.models.Service;
 import com.example.booking.repositories.ServiceRepository;
-import com.example.booking.services.errors.BadRequestException;
-import com.example.booking.services.errors.NotFoundException;
+import com.example.booking.controllers.errors.BadRequestException;
+import com.example.booking.controllers.errors.NotFoundException;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class ServiceServiceImpl implements ServiceService {
         if (serviceRepo.existsAppointmentWithService(service)) {
             throw new BadRequestException("There is/are appointment/s associated with this service");
         } else {
-            serviceRepo.removeFromProfessionalsServices(service);
+            serviceRepo.removeFromProfessionalsServices(service.getId());
             serviceRepo.delete(service);
         }
     }

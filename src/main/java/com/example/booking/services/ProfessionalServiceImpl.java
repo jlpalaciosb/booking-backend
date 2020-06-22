@@ -3,8 +3,8 @@ package com.example.booking.services;
 import com.example.booking.models.Professional;
 import com.example.booking.models.Service;
 import com.example.booking.repositories.ProfessionalRepository;
-import com.example.booking.services.errors.BadRequestException;
-import com.example.booking.services.errors.NotFoundException;
+import com.example.booking.controllers.errors.BadRequestException;
+import com.example.booking.controllers.errors.NotFoundException;
 import java.util.List;
 import java.util.Set;
 

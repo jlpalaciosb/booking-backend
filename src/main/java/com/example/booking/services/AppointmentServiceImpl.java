@@ -2,10 +2,9 @@ package com.example.booking.services;
 
 import com.example.booking.models.Appointment;
 import com.example.booking.repositories.AppointmentRepository;
-import com.example.booking.services.errors.BadRequestException;
-import com.example.booking.services.errors.NotFoundException;
+import com.example.booking.controllers.errors.BadRequestException;
+import com.example.booking.controllers.errors.NotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.List;
 
