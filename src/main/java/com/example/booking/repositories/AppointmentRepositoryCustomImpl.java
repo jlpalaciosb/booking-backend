@@ -1,5 +1,6 @@
 package com.example.booking.repositories;
 
+import com.example.booking.models.Appointment;
 import com.example.booking.models.Client;
 import com.example.booking.models.Professional;
 import com.example.booking.models.Service;
@@ -10,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Repository
 @Transactional(readOnly = true)
@@ -17,6 +19,32 @@ public class AppointmentRepositoryCustomImpl implements AppointmentRepositoryCus
 
     @PersistenceContext
     EntityManager em;
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Appointment> findAll(LocalDate minDate, LocalDate maxDate, Long clientId) {
+        String qs = "select a from Appointment a where true = true";
+        if (minDate != null) {
+            qs += " and a.date >= :minDate";
+        }
+        if (maxDate != null) {
+            qs += " and a.date <= :maxDate";
+        }
+        if (clientId != null) {
+            qs += " and a.client.id = :clientId";
+        }
+        Query q = em.createQuery(qs);
+        if (minDate != null) {
+            q.setParameter("minDate", minDate);
+        }
+        if (maxDate != null) {
+            q.setParameter("maxDate", maxDate);
+        }
+        if (clientId != null) {
+            q.setParameter("clientId", clientId);
+        }
+        return (List<Appointment>) q.getResultList();
+    }
 
     @Override
     public boolean existsService(Service service) {

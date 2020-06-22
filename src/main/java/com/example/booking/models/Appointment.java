@@ -15,7 +15,7 @@ public class Appointment {
     private Long id;
 
     @NotNull(message = "Date is mandatory")
-    private LocalDate date;
+    private LocalDate date; // TODO: apply index
 
     @NotNull(message = "Start time is mandatory")
     private LocalTime startTime;

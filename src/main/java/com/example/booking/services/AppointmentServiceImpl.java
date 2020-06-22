@@ -5,6 +5,8 @@ import com.example.booking.repositories.AppointmentRepository;
 import com.example.booking.services.errors.BadRequestException;
 import com.example.booking.services.errors.NotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -17,8 +19,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<Appointment> listAppointments() {
-        return appointmentRepo.findAll();
+    public List<Appointment> listAppointments(LocalDate minDate, LocalDate maxDate, Long clientId) {
+        return appointmentRepo.findAll(minDate, maxDate, clientId);
     }
 
     @Override
