@@ -1,14 +1,8 @@
 package com.example.booking.controllers;
 
-import java.util.List;
 import com.example.booking.services.ServiceService;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 import com.example.booking.models.Service;
 import javax.validation.Valid;
 
@@ -22,8 +16,11 @@ class ServiceController {
     }
 
     @GetMapping("/services")
-    List<Service> listServices() {
-        return serviceService.listServices();
+    Page<Service> listServices(
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer pageSize,
+            @RequestParam(required = false) String sortBy) {
+        return serviceService.listServices(page, pageSize, sortBy);
     }
 
     @GetMapping("/services/{id}")

@@ -1,10 +1,10 @@
 package com.example.booking.services;
 
 import com.example.booking.models.Service;
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface ServiceService {
-    List<Service> listServices();
+    Page<Service> listServices(Integer page, Integer pageSize, String sortBy);
     Service getService(Long id);
     Service createService(Service newService);
     Service updateService(Long id, Service actualService);

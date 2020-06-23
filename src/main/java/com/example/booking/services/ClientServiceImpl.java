@@ -4,8 +4,11 @@ import com.example.booking.models.Client;
 import com.example.booking.repositories.ClientRepository;
 import com.example.booking.controllers.errors.BadRequestException;
 import com.example.booking.controllers.errors.NotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
 public class ClientServiceImpl implements ClientService {
@@ -17,8 +20,19 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<Client> listClients() {
-        return clientRepo.findAll();
+    public Page<Client> listClients(Integer page, Integer pageSize, String sortBy) {
+        page = page != null ? Math.max(0, page) : 0;
+        pageSize = pageSize != null ? Math.min(Math.max(1, pageSize), 100) : 10;
+
+        Sort sort = Sort.by("lastName").ascending();
+        if ("-lastName".equals(sortBy)) sort = Sort.by("lastName").descending();
+        else if ("+firstName".equals(sortBy)) sort = Sort.by("firstName").ascending();
+        else if ("-firstName".equals(sortBy)) sort = Sort.by("firstName").descending();
+        else if ("+document".equals(sortBy)) sort = Sort.by("document").ascending();
+        else if ("-document".equals(sortBy)) sort = Sort.by("document").descending();
+
+        Pageable pageable = PageRequest.of(page, pageSize, sort);
+        return clientRepo.findAll(pageable);
     }
 
     @Override

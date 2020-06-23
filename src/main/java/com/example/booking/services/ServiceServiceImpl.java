@@ -4,8 +4,10 @@ import com.example.booking.models.Service;
 import com.example.booking.repositories.ServiceRepository;
 import com.example.booking.controllers.errors.BadRequestException;
 import com.example.booking.controllers.errors.NotFoundException;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 @org.springframework.stereotype.Service
 public class ServiceServiceImpl implements ServiceService {
@@ -17,8 +19,15 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public List<Service> listServices() {
-        return serviceRepo.findAll();
+    public Page<Service> listServices(Integer page, Integer pageSize, String sortBy) {
+        page = page != null ? Math.max(0, page) : 0;
+        pageSize = pageSize != null ? Math.min(Math.max(1, pageSize), 100) : 10;
+
+        Sort sort = Sort.by("name").ascending();
+        if ("-name".equals(sortBy)) sort = Sort.by("name").descending();
+
+        Pageable pageable = PageRequest.of(page, pageSize, sort);
+        return serviceRepo.findAll(pageable);
     }
 
     @Override

@@ -4,13 +4,8 @@ import java.util.List;
 import java.util.Set;
 import com.example.booking.models.Service;
 import com.example.booking.services.ProfessionalService;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 import com.example.booking.models.Professional;
 import javax.validation.Valid;
 
@@ -24,8 +19,11 @@ class ProfessionalController {
     }
 
     @GetMapping("/professionals")
-    List<Professional> listProfessionals() {
-        return professionalService.listProfessionals();
+    Page<Professional> listProfessionals(
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer pageSize,
+            @RequestParam(required = false) String sortBy) {
+        return professionalService.listProfessionals(page, pageSize, sortBy);
     }
 
     @GetMapping("/professionals/{id}")

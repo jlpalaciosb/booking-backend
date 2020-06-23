@@ -1,10 +1,10 @@
 package com.example.booking.services;
 
 import com.example.booking.models.Client;
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface ClientService {
-    List<Client> listClients();
+    Page<Client> listClients(Integer page, Integer pageSize, String sortBy);
     Client getClient(Long id);
     Client createClient(Client newClient);
     Client updateClient(Long id, Client actualClient);

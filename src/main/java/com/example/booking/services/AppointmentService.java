@@ -1,8 +1,6 @@
 package com.example.booking.services;
 
 import com.example.booking.models.Appointment;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import java.time.LocalDate;
 import java.util.List;
 

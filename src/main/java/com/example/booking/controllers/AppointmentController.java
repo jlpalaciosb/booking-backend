@@ -28,7 +28,9 @@ class AppointmentController {
     List<Appointment> listAppointments(
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate minDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate maxDate,
-            @RequestParam(required = false) Long clientId) {
+            @RequestParam(required = false) Long clientId,
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer pageSize) {
         return appointmentService.listAppointments(minDate, maxDate, clientId);
     }
 
