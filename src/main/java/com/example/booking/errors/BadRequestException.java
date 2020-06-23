@@ -1,4 +1,4 @@
-package com.example.booking.controllers.errors;
+package com.example.booking.errors;
 
 public class BadRequestException extends RuntimeException {
 

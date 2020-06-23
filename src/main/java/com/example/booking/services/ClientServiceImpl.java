@@ -2,8 +2,8 @@ package com.example.booking.services;
 
 import com.example.booking.models.Client;
 import com.example.booking.repositories.ClientRepository;
-import com.example.booking.controllers.errors.BadRequestException;
-import com.example.booking.controllers.errors.NotFoundException;
+import com.example.booking.errors.BadRequestException;
+import com.example.booking.errors.NotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

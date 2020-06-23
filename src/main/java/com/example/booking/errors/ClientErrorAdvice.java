@@ -1,4 +1,4 @@
-package com.example.booking.controllers.errors;
+package com.example.booking.errors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
