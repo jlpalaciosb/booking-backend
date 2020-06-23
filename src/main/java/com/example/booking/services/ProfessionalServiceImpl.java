@@ -23,8 +23,8 @@ public class ProfessionalServiceImpl implements ProfessionalService {
 
     @Override
     public Page<Professional> listProfessionals(Integer page, Integer pageSize, String sortBy) {
-        page = page != null ? Math.max(0, page) : 0;
-        pageSize = pageSize != null ? Math.min(Math.max(1, pageSize), 100) : 10;
+        page = Math.max(0, page);
+        pageSize = Math.min(Math.max(1, pageSize), 100);
 
         Sort sort = Sort.by("lastName").ascending();
         if ("-lastName".equals(sortBy)) sort = Sort.by("lastName").descending();

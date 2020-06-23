@@ -17,9 +17,9 @@ class ServiceController {
 
     @GetMapping("/services")
     Page<Service> listServices(
-            @RequestParam(required = false) Integer page,
-            @RequestParam(required = false) Integer pageSize,
-            @RequestParam(required = false) String sortBy) {
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "+name") String sortBy) {
         return serviceService.listServices(page, pageSize, sortBy);
     }
 

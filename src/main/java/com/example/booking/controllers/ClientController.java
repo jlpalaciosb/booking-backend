@@ -17,9 +17,9 @@ class ClientController {
 
     @GetMapping("/clients")
     Page<Client> listClients(
-            @RequestParam(required = false) Integer page,
-            @RequestParam(required = false) Integer pageSize,
-            @RequestParam(required = false) String sortBy) {
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "+lastName") String sortBy) {
         return clientService.listClients(page, pageSize, sortBy);
     }
 

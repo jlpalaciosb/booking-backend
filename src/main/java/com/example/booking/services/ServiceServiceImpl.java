@@ -20,8 +20,8 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     public Page<Service> listServices(Integer page, Integer pageSize, String sortBy) {
-        page = page != null ? Math.max(0, page) : 0;
-        pageSize = pageSize != null ? Math.min(Math.max(1, pageSize), 100) : 10;
+        page = Math.max(0, page);
+        pageSize = Math.min(Math.max(1, pageSize), 100);
 
         Sort sort = Sort.by("name").ascending();
         if ("-name".equals(sortBy)) sort = Sort.by("name").descending();
