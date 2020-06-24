@@ -1,11 +1,12 @@
 package com.example.booking.services;
 
 import com.example.booking.models.Appointment;
+import org.springframework.data.domain.Page;
 import java.time.LocalDate;
-import java.util.List;
 
 public interface AppointmentService {
-    List<Appointment> listAppointments(LocalDate minDate, LocalDate maxDate, Long clientId);
+    Page<Appointment> listAppointments(LocalDate minDate, LocalDate maxDate, Long clientId,
+                                       Integer page, Integer pageSize);
     Appointment getAppointment(Long id);
     Appointment createAppointment(Appointment newAppointment);
     Appointment updateAppointment(Long id, Appointment actualAppointment);

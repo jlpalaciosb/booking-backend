@@ -1,8 +1,8 @@
 package com.example.booking.controllers;
 
 import java.time.LocalDate;
-import java.util.List;
 import com.example.booking.services.AppointmentService;
+import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,13 +25,13 @@ class AppointmentController {
     }
 
     @GetMapping("/appointments")
-    List<Appointment> listAppointments(
+    Page<Appointment> listAppointments(
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate minDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate maxDate,
             @RequestParam(required = false) Long clientId,
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "10") Integer pageSize) {
-        return appointmentService.listAppointments(minDate, maxDate, clientId);
+        return appointmentService.listAppointments(minDate, maxDate, clientId, page, pageSize);
     }
 
     @GetMapping("/appointments/{id}")

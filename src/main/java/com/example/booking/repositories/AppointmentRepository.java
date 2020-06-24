@@ -5,12 +5,13 @@ import com.example.booking.models.Professional;
 import com.example.booking.models.Service;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.booking.models.Appointment;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public interface AppointmentRepository extends JpaRepository<Appointment, Long>, AppointmentRepositoryCustom {
+public interface AppointmentRepository extends JpaRepository<Appointment, Long>, JpaSpecificationExecutor<Appointment> {
 
     @Query("select (count(s) >= 1) from Service s where s = :s")
     boolean existsService(@Param("s") Service service);

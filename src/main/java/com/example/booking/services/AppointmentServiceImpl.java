@@ -4,9 +4,13 @@ import com.example.booking.models.Appointment;
 import com.example.booking.repositories.AppointmentRepository;
 import com.example.booking.errors.BadRequestException;
 import com.example.booking.errors.NotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
-import java.util.List;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
@@ -18,8 +22,22 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<Appointment> listAppointments(LocalDate minDate, LocalDate maxDate, Long clientId) {
-        return appointmentRepo.findAll(minDate, maxDate, clientId);
+    public Page<Appointment> listAppointments(LocalDate minDate, LocalDate maxDate, Long clientId,
+                                              Integer page, Integer pageSize) {
+        Specification<Appointment> s1 = (root, query, cb) ->
+                minDate == null ? null : cb.greaterThanOrEqualTo(root.get("date"), minDate);
+        Specification<Appointment> s2 = (root, query, cb) ->
+                maxDate == null ? null : cb.lessThanOrEqualTo(root.get("date"), maxDate);
+        Specification<Appointment> s3 = (root, query, cb) ->
+                clientId == null ? null : cb.equal(root.get("client").get("id"), clientId);
+        Specification<Appointment> spec = Specification.where(s1).and(s2).and(s3);
+
+        page = Math.max(0, page);
+        pageSize = Math.min(Math.max(1, pageSize), 100);
+        Sort sort = Sort.by("date").descending().and(Sort.by("startTime").ascending());
+        Pageable pageable = PageRequest.of(page, pageSize, sort);
+
+        return appointmentRepo.findAll(spec, pageable);
     }
 
     @Override
