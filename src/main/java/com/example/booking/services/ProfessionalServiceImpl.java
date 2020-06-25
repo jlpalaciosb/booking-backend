@@ -22,7 +22,7 @@ public class ProfessionalServiceImpl implements ProfessionalService {
     }
 
     @Override
-    public Page<Professional> listProfessionals(Integer page, Integer pageSize, String sortBy) {
+    public Page<Professional> listProfessionals(String filter, Integer page, Integer pageSize, String sortBy) {
         page = Math.max(0, page);
         pageSize = Math.min(Math.max(1, pageSize), 100);
 
@@ -34,7 +34,7 @@ public class ProfessionalServiceImpl implements ProfessionalService {
         else if ("-document".equals(sortBy)) sort = Sort.by("document").descending();
 
         Pageable pageable = PageRequest.of(page, pageSize, sort);
-        return professionalRepo.findAll(pageable);
+        return professionalRepo.findByLastNameIgnoreCaseStartsWith(filter.trim(), pageable);
     }
 
     @Override

@@ -20,7 +20,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Page<Client> listClients(Integer page, Integer pageSize, String sortBy) {
+    public Page<Client> listClients(String filter, Integer page, Integer pageSize, String sortBy) {
         page = Math.max(0, page);
         pageSize = Math.min(Math.max(1, pageSize), 100);
 
@@ -32,7 +32,7 @@ public class ClientServiceImpl implements ClientService {
         else if ("-document".equals(sortBy)) sort = Sort.by("document").descending();
 
         Pageable pageable = PageRequest.of(page, pageSize, sort);
-        return clientRepo.findAll(pageable);
+        return clientRepo.findByLastNameIgnoreCaseStartsWith(filter.trim(), pageable);
     }
 
     @Override

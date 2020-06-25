@@ -20,10 +20,11 @@ class ProfessionalController {
 
     @GetMapping("/professionals")
     Page<Professional> listProfessionals(
+            @RequestParam(defaultValue = "") String filter,
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "+lastName") String sortBy) {
-        return professionalService.listProfessionals(page, pageSize, sortBy);
+        return professionalService.listProfessionals(filter, page, pageSize, sortBy);
     }
 
     @GetMapping("/professionals/{id}")

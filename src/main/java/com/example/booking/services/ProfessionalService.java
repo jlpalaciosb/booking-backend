@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface ProfessionalService {
-    Page<Professional> listProfessionals(Integer page, Integer pageSize, String sortBy);
+    Page<Professional> listProfessionals(String filter, Integer page, Integer pageSize, String sortBy);
     Professional getProfessional(Long id);
     Professional createProfessional(Professional newProfessional);
     Professional updateProfessional(Long id, Professional actualProfessional);

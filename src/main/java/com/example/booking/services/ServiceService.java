@@ -4,7 +4,7 @@ import com.example.booking.models.Service;
 import org.springframework.data.domain.Page;
 
 public interface ServiceService {
-    Page<Service> listServices(Integer page, Integer pageSize, String sortBy);
+    Page<Service> listServices(String filter, Integer page, Integer pageSize, String sortBy);
     Service getService(Long id);
     Service createService(Service newService);
     Service updateService(Long id, Service actualService);

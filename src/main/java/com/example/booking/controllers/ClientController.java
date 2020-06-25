@@ -17,10 +17,11 @@ class ClientController {
 
     @GetMapping("/clients")
     Page<Client> listClients(
+            @RequestParam(defaultValue = "") String filter,
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "+lastName") String sortBy) {
-        return clientService.listClients(page, pageSize, sortBy);
+        return clientService.listClients(filter, page, pageSize, sortBy);
     }
 
     @GetMapping("/clients/{id}")

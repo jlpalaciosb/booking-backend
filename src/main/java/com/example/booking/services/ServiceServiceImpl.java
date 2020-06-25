@@ -19,7 +19,7 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public Page<Service> listServices(Integer page, Integer pageSize, String sortBy) {
+    public Page<Service> listServices(String filter, Integer page, Integer pageSize, String sortBy) {
         page = Math.max(0, page);
         pageSize = Math.min(Math.max(1, pageSize), 100);
 
@@ -27,7 +27,7 @@ public class ServiceServiceImpl implements ServiceService {
         if ("-name".equals(sortBy)) sort = Sort.by("name").descending();
 
         Pageable pageable = PageRequest.of(page, pageSize, sort);
-        return serviceRepo.findAll(pageable);
+        return serviceRepo.findByNameIgnoreCaseStartsWith(filter.trim(), pageable);
     }
 
     @Override

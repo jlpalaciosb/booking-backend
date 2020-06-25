@@ -1,11 +1,15 @@
 package com.example.booking.repositories;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.booking.models.Professional;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface ProfessionalRepository extends JpaRepository<Professional, Long> {
+
+    Page<Professional> findByLastNameIgnoreCaseStartsWith(String filter, Pageable pageable);
 
     boolean existsByDocument(String document);
 

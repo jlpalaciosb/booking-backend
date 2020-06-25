@@ -17,10 +17,11 @@ class ServiceController {
 
     @GetMapping("/services")
     Page<Service> listServices(
+            @RequestParam(defaultValue = "") String filter,
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "+name") String sortBy) {
-        return serviceService.listServices(page, pageSize, sortBy);
+        return serviceService.listServices(filter, page, pageSize, sortBy);
     }
 
     @GetMapping("/services/{id}")
