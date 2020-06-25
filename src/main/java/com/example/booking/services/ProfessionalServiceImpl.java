@@ -44,12 +44,14 @@ public class ProfessionalServiceImpl implements ProfessionalService {
 
     @Override
     public Professional createProfessional(Professional newProfessional) {
+        newProfessional.trim();
         validate(null, newProfessional);
         return professionalRepo.save(newProfessional);
     }
 
     @Override
     public Professional updateProfessional(Long id, Professional actualProfessional) {
+        actualProfessional.trim();
         Professional professional = professionalRepo.findById(id)
                 .orElseThrow(() -> new NotFoundException("professional", id));
         validate(professional, actualProfessional);

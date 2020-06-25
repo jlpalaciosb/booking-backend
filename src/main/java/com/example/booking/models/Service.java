@@ -46,6 +46,11 @@ public class Service implements Comparable<Service> {
         this.description = description;
     }
 
+    public void trim() {
+        if (name != null) name = name.trim();
+        if (description != null) description = description.trim();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

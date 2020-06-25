@@ -114,6 +114,10 @@ public class Appointment {
         this.comment = comment;
     }
 
+    public void trim() {
+        if (comment != null) comment = comment.trim();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

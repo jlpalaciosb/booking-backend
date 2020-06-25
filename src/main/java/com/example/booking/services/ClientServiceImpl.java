@@ -42,12 +42,14 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client createClient(Client newClient) {
+        newClient.trim();
         validate(null, newClient);
         return clientRepo.save(newClient);
     }
 
     @Override
     public Client updateClient(Long id, Client actualClient) {
+        actualClient.trim();
         Client client = clientRepo.findById(id).orElseThrow(() -> new NotFoundException("client", id));
         validate(client, actualClient);
         client.setDocument(actualClient.getDocument());

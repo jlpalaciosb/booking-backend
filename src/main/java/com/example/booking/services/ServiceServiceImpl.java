@@ -37,12 +37,14 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     public Service createService(Service newService) {
+        newService.trim();
         validate(null, newService);
         return serviceRepo.save(newService);
     }
 
     @Override
     public Service updateService(Long id, Service actualService) {
+        actualService.trim();
         Service service = serviceRepo.findById(id).orElseThrow(() -> new NotFoundException("service", id));
         validate(service, actualService);
         service.setName(actualService.getName());

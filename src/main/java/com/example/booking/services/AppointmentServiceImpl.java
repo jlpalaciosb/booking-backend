@@ -47,12 +47,14 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public Appointment createAppointment(Appointment newAppointment) {
+        newAppointment.trim();
         validate(null, newAppointment);
         return appointmentRepo.save(newAppointment);
     }
 
     @Override
     public Appointment updateAppointment(Long id, Appointment actualAppointment) {
+        actualAppointment.trim();
         Appointment appointment = appointmentRepo.findById(id)
                 .orElseThrow(() -> new NotFoundException("appointment", id));
         validate(appointment, actualAppointment);
@@ -76,8 +78,8 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
     }
 
-    // oldAppointment == null ? creating : updating
     private void validate(Appointment oldAppointment, Appointment newAppointment) {
+        boolean creating = (oldAppointment == null);
         if (newAppointment.getService().getId() == null) {
             throw new BadRequestException("Set service id");
         }
@@ -104,7 +106,7 @@ public class AppointmentServiceImpl implements AppointmentService {
             throw new BadRequestException("Unable to find professional with id " +
                     newAppointment.getProfessional().getId());
         }
-        Long uaid = oldAppointment != null ? oldAppointment.getId() : -1;
+        Long uaid = creating ? -1 : oldAppointment.getId();
         if (appointmentRepo.occupiedProfessional(uaid, newAppointment.getProfessional(), newAppointment.getDate(),
                 newAppointment.getStartTime(), newAppointment.getFinishTime())) {
             throw new BadRequestException("Professional has another appointment in the given time frame");

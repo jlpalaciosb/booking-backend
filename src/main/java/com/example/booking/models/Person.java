@@ -95,4 +95,12 @@ abstract class Person {
     public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
+
+    public void trim() {
+        if (document != null) document = document.trim();
+        if (firstName != null) firstName = firstName.trim();
+        if (lastName != null) lastName = lastName.trim();
+        if (email != null) email = email.trim();
+        if (phoneNumber != null) phoneNumber = phoneNumber.trim();
+    }
 }
