@@ -1,5 +1,5 @@
 -- Important script to create indexes in the database to speed up some queries.
--- Running correctly in: PostgreSQL 11.
+-- Running correctly in: PostgreSQL 12.
 
 create index service_name_index on service (name);
 create index service_upper_name_index on service (upper(name));
