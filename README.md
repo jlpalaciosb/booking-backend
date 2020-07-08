@@ -8,4 +8,4 @@ The system defines services, clients, professionals and appointments.
 
 # Demo
 
-Please follow this link [bookin-backen.herokuapp.com/swagger-ui.html](bookin-backen.herokuapp.com/swagger-ui.html) to try out the API and check its documentation.
+Please follow this link [https://bookin-backen.herokuapp.com/swagger-ui.html](https://bookin-backen.herokuapp.com/swagger-ui.html) to try out the API and check its documentation.
