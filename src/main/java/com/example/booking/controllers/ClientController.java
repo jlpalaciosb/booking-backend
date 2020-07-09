@@ -2,6 +2,7 @@ package com.example.booking.controllers;
 
 import com.example.booking.services.ClientService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import com.example.booking.models.Client;
@@ -19,10 +20,21 @@ class ClientController {
     @ApiOperation(value = "List existing clients")
     @GetMapping("/clients")
     Page<Client> listClients(
-            @RequestParam(defaultValue = "") String filter,
+            @ApiParam(value = "Filter by client last name")
+            @RequestParam(defaultValue = "")
+            String filter,
+
+            @ApiParam(value = "Specify an ordering. \n" +
+                              "+firstName: sort by client first name, ascending. \n" +
+                              "-firstName: sort by client first name, descending. \n" +
+                              "+lastName: sort by client last name, ascending. \n" +
+                              "-lastName: sort by client last name, descending. ")
+            @RequestParam(defaultValue = "+lastName")
+            String sortBy,
+
             @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "10") Integer pageSize,
-            @RequestParam(defaultValue = "+lastName") String sortBy) {
+
+            @RequestParam(defaultValue = "10") Integer pageSize) {
         return clientService.listClients(filter, page, pageSize, sortBy);
     }
 

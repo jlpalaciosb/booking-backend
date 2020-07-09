@@ -3,6 +3,7 @@ package com.example.booking.controllers;
 import com.example.booking.services.ServiceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import com.example.booking.models.Service;
@@ -20,10 +21,19 @@ class ServiceController {
     @ApiOperation(value = "List existing services")
     @GetMapping("/services")
     Page<Service> listServices(
-            @RequestParam(defaultValue = "") String filter,
+            @ApiParam(value = "Filter by service name")
+            @RequestParam(defaultValue = "")
+            String filter,
+
+            @ApiParam(value = "Specify an ordering. \n" +
+                              "+name: sort by service name, ascending. \n" +
+                              "-name: sort by service name, descending. ")
+            @RequestParam(defaultValue = "+name")
+            String sortBy,
+
             @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "10") Integer pageSize,
-            @RequestParam(defaultValue = "+name") String sortBy) {
+
+            @RequestParam(defaultValue = "10") Integer pageSize) {
         return serviceService.listServices(filter, page, pageSize, sortBy);
     }
 

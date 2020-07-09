@@ -34,7 +34,7 @@ public class Appointment {
     @ManyToOne(optional = false)
     private Professional professional;
 
-    // Valid States: S (scheduled), Y (attended), N (did not attend)
+    // Valid values: S (scheduled), Y (attended), N (did not attend)
     @NotNull(message = "State is mandatory")
     private Character state;
 

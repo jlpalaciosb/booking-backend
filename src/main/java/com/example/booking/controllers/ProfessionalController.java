@@ -5,6 +5,7 @@ import java.util.Set;
 import com.example.booking.models.Service;
 import com.example.booking.services.ProfessionalService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import com.example.booking.models.Professional;
@@ -22,10 +23,21 @@ class ProfessionalController {
     @ApiOperation(value = "List existing professionals")
     @GetMapping("/professionals")
     Page<Professional> listProfessionals(
-            @RequestParam(defaultValue = "") String filter,
+            @ApiParam(value = "Filter by professional last name")
+            @RequestParam(defaultValue = "")
+            String filter,
+
+            @ApiParam(value = "Specify an ordering. \n" +
+                              "+firstName: sort by professional first name, ascending. \n" +
+                              "-firstName: sort by professional first name, descending. \n" +
+                              "+lastName: sort by professional last name, ascending. \n" +
+                              "-lastName: sort by professional last name, descending. ")
+            @RequestParam(defaultValue = "+lastName")
+            String sortBy,
+
             @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "10") Integer pageSize,
-            @RequestParam(defaultValue = "+lastName") String sortBy) {
+
+            @RequestParam(defaultValue = "10") Integer pageSize) {
         return professionalService.listProfessionals(filter, page, pageSize, sortBy);
     }
 

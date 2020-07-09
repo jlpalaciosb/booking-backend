@@ -3,6 +3,7 @@ package com.example.booking.controllers;
 import java.time.LocalDate;
 import com.example.booking.services.AppointmentService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,13 +26,25 @@ class AppointmentController {
         this.appointmentService = appointmentService;
     }
 
-    @ApiOperation(value = "List existing appointments")
+    @ApiOperation(value = "List existing appointments; sorted by date, descending")
     @GetMapping("/appointments")
     Page<Appointment> listAppointments(
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate minDate,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate maxDate,
-            @RequestParam(required = false) Long clientId,
+            @ApiParam(value = "Filter appointments by date, minimum date")
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            LocalDate minDate,
+
+            @ApiParam(value = "Filter appointments by date, maximum date")
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            LocalDate maxDate,
+
+            @ApiParam(value = "List only the appointments of a specific client")
+            @RequestParam(required = false)
+            Long clientId,
+
             @RequestParam(defaultValue = "0") Integer page,
+
             @RequestParam(defaultValue = "10") Integer pageSize) {
         return appointmentService.listAppointments(minDate, maxDate, clientId, page, pageSize);
     }
