@@ -1,5 +1,7 @@
 package com.example.booking.models;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,29 +15,36 @@ abstract class Person {
 
     @Id
     @GeneratedValue
+    @ApiModelProperty(position = 0)
     private Long id;
 
     @Column(nullable = false, unique = true)
     @NotBlank(message = "Document is mandatory")
+    @ApiModelProperty(position = 1)
     private String document;
 
     @Column(nullable = false)
     @NotBlank(message = "First Name is mandatory")
+    @ApiModelProperty(position = 2)
     private String firstName;
 
     @Column(nullable = false)
     @NotBlank(message = "Last name is mandatory")
+    @ApiModelProperty(position = 3)
     private String lastName;
 
     @Column(nullable = false, unique = true)
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Invalid email address")
+    @ApiModelProperty(position = 4)
     private String email;
 
     @Column(nullable = false, unique = true)
     @NotBlank(message = "Phone number is mandatory")
+    @ApiModelProperty(position = 5)
     private String phoneNumber;
 
+    @ApiModelProperty(position = 6)
     private LocalDate birthdate;
 
     public Person() {}

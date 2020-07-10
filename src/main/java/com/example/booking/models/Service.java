@@ -1,5 +1,7 @@
 package com.example.booking.models;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,12 +14,15 @@ public class Service implements Comparable<Service> {
 
     @Id
     @GeneratedValue
+    @ApiModelProperty(position = 0)
     private Long id;
 
     @Column(nullable = false, unique = true)
     @NotBlank(message = "Name is mandatory")
+    @ApiModelProperty(position = 1)
     private String name;
 
+    @ApiModelProperty(position = 2)
     private String description;
 
     public Service() {}
