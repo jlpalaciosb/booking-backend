@@ -1,7 +1,6 @@
 package com.example.booking.models.apidoc;
 
 import io.swagger.annotations.ApiModelProperty;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -62,9 +61,6 @@ public class AppointmentDoc {
     private AppointmentProfessional professional;
 
     @ApiModelProperty(position = 6)
-    private Character state;
-
-    @ApiModelProperty(position = 7)
     private String comment;
 
     public LocalDate getDate() {
@@ -113,14 +109,6 @@ public class AppointmentDoc {
 
     public void setProfessional(AppointmentProfessional professional) {
         this.professional = professional;
-    }
-
-    public Character getState() {
-        return state;
-    }
-
-    public void setState(Character state) {
-        this.state = state;
     }
 
     public String getComment() {

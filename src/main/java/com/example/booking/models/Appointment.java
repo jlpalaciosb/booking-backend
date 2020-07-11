@@ -43,10 +43,9 @@ public class Appointment {
     @ManyToOne(optional = false)
     private Professional professional;
 
-    // Valid values: S (scheduled), Y (attended), N (did not attend)
-    @NotNull(message = "State is mandatory")
     @ApiModelProperty(position = 7)
-    private Character state;
+    private AppointmentStatus status;
+    public enum AppointmentStatus { SCHEDULED, ATTENDED, NOT_ATTENDED, CANCELLED }
 
     @ApiModelProperty(position = 8)
     private String comment;
@@ -109,12 +108,12 @@ public class Appointment {
         this.professional = professional;
     }
 
-    public Character getState() {
-        return state;
+    public AppointmentStatus getStatus() {
+        return status;
     }
 
-    public void setState(Character state) {
-        this.state = state;
+    public void setStatus(AppointmentStatus state) {
+        this.status = state;
     }
 
     public String getComment() {

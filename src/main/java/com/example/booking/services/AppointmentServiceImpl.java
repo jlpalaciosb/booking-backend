@@ -1,6 +1,7 @@
 package com.example.booking.services;
 
 import com.example.booking.models.Appointment;
+import com.example.booking.models.Appointment.AppointmentStatus;
 import com.example.booking.repositories.AppointmentRepository;
 import com.example.booking.errors.BadRequestException;
 import com.example.booking.errors.NotFoundException;
@@ -48,6 +49,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public Appointment createAppointment(Appointment newAppointment) {
         newAppointment.trim();
+        newAppointment.setStatus(Appointment.AppointmentStatus.SCHEDULED);
         validate(null, newAppointment);
         return appointmentRepo.save(newAppointment);
     }
@@ -64,8 +66,15 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointment.setService(actualAppointment.getService());
         appointment.setProfessional(actualAppointment.getProfessional());
         appointment.setClient(actualAppointment.getClient());
-        appointment.setState(actualAppointment.getState());
         appointment.setComment(actualAppointment.getComment());
+        return appointmentRepo.save(appointment);
+    }
+
+    @Override
+    public Appointment setAppointmentStatus(Long id, AppointmentStatus status) {
+        Appointment appointment = appointmentRepo.findById(id)
+                .orElseThrow(() -> new NotFoundException("appointment", id));
+        appointment.setStatus(status);
         return appointmentRepo.save(appointment);
     }
 
@@ -88,10 +97,6 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
         if (newAppointment.getProfessional().getId() == null) {
             throw new BadRequestException("Set professional id");
-        }
-        Character nas = newAppointment.getState();
-        if (!(nas.equals('S') || nas.equals('Y') || nas.equals('N'))) {
-            throw new BadRequestException("Set a correct state (S/Y/N)");
         }
         if (!(newAppointment.getStartTime().compareTo(newAppointment.getFinishTime()) < 0)) {
             throw new BadRequestException("Start time must be less than finish time");

@@ -3,6 +3,7 @@ package com.example.booking.repositories;
 import com.example.booking.models.Client;
 import com.example.booking.models.Professional;
 import com.example.booking.models.Service;
+import com.example.booking.models.Appointment.AppointmentStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.booking.models.Appointment;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -22,8 +23,9 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long>,
     @Query("select (count(p) >= 1) from Professional p where p = :p")
     boolean existsProfessional(@Param("p") Professional professional);
 
+    // TODO: solo scheduled
     /** @param uaid Updating appointment id */
-    @Query("select (count(a) >= 1) from Appointment a where a.id <> :uaid and " +
+    @Query("select (count(a) >= 1) from Appointment a where a.id <> :uaid and a.status = 0 and " +
            "a.professional = :p and a.date = :dt and a.finishTime > :st and a.startTime < :ft")
     boolean occupiedProfessional(@Param("uaid") Long uaid, @Param("p") Professional professional,
                                  @Param("dt") LocalDate date, @Param("st") LocalTime startTime,

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.booking.models.Appointment;
+import com.example.booking.models.Appointment.AppointmentStatus;
 import javax.validation.Valid;
 
 @RestController
@@ -82,6 +83,46 @@ class AppointmentController {
             name = "actualAppointment", value = "Actual appointment", dataType = "AppointmentPut")})
     Appointment updateAppointment(@PathVariable Long id, @RequestBody @Valid Appointment actualAppointment) {
         return appointmentService.updateAppointment(id, actualAppointment);
+    }
+
+    @PutMapping("/appointments/{id}/reset")
+    @ApiOperation(value = "Set appointment status to SCHEDULED")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found")})
+    Appointment scheduledAppointment(@PathVariable Long id) {
+        return appointmentService.setAppointmentStatus(id, AppointmentStatus.SCHEDULED);
+    }
+
+    @PutMapping("/appointments/{id}/attend")
+    @ApiOperation(value = "Set appointment status to ATTENDED")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found")})
+    Appointment attendedAppointment(@PathVariable Long id) {
+        return appointmentService.setAppointmentStatus(id, AppointmentStatus.ATTENDED);
+    }
+
+    @PutMapping("/appointments/{id}/not_attend")
+    @ApiOperation(value = "Set appointment status to NOT_ATTENDED")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found")})
+    Appointment notAttendedAppointment(@PathVariable Long id) {
+        return appointmentService.setAppointmentStatus(id, AppointmentStatus.NOT_ATTENDED);
+    }
+
+    @PutMapping("/appointments/{id}/cancel")
+    @ApiOperation(value = "Set appointment status to CANCELLED")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found")})
+    Appointment canceledAppointment(@PathVariable Long id) {
+        return appointmentService.setAppointmentStatus(id, AppointmentStatus.CANCELLED);
     }
 
     @DeleteMapping("/appointments/{id}")
