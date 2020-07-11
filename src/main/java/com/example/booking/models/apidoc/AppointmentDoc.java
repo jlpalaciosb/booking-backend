@@ -41,7 +41,7 @@ public class AppointmentDoc {
         }
     }
 
-    @ApiModelProperty(position = 0, example = "2021-01-01")
+    @ApiModelProperty(position = 0, example = "2020-12-31")
     private LocalDate date;
 
     @ApiModelProperty(position = 1, example = "09:00")

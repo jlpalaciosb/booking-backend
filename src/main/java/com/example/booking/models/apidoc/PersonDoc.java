@@ -20,7 +20,7 @@ public class PersonDoc {
     @ApiModelProperty(position = 4)
     private String phoneNumber;
 
-    @ApiModelProperty(position = 5)
+    @ApiModelProperty(position = 5, example = "1990-12-31")
     private LocalDate birthdate;
 
     public String getDocument() {
