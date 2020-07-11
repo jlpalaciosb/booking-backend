@@ -91,7 +91,7 @@ class AppointmentController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found")})
-    Appointment scheduledAppointment(@PathVariable Long id) {
+    Appointment resetAppointment(@PathVariable Long id) {
         return appointmentService.setAppointmentStatus(id, AppointmentStatus.SCHEDULED);
     }
 
@@ -101,17 +101,17 @@ class AppointmentController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found")})
-    Appointment attendedAppointment(@PathVariable Long id) {
+    Appointment attendAppointment(@PathVariable Long id) {
         return appointmentService.setAppointmentStatus(id, AppointmentStatus.ATTENDED);
     }
 
-    @PutMapping("/appointments/{id}/not_attend")
+    @PutMapping("/appointments/{id}/notAttend")
     @ApiOperation(value = "Set appointment status to NOT_ATTENDED")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found")})
-    Appointment notAttendedAppointment(@PathVariable Long id) {
+    Appointment notAttendAppointment(@PathVariable Long id) {
         return appointmentService.setAppointmentStatus(id, AppointmentStatus.NOT_ATTENDED);
     }
 
@@ -121,7 +121,7 @@ class AppointmentController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found")})
-    Appointment canceledAppointment(@PathVariable Long id) {
+    Appointment cancelAppointment(@PathVariable Long id) {
         return appointmentService.setAppointmentStatus(id, AppointmentStatus.CANCELLED);
     }
 

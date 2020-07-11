@@ -2,7 +2,6 @@ package com.example.booking.models.apidoc;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class AppointmentDoc {
 
@@ -42,14 +41,14 @@ public class AppointmentDoc {
         }
     }
 
-    @ApiModelProperty(position = 0)
+    @ApiModelProperty(position = 0, example = "2021-01-01")
     private LocalDate date;
 
-    @ApiModelProperty(position = 1)
-    private LocalTime startTime;
+    @ApiModelProperty(position = 1, example = "09:00")
+    private String startTime;
 
-    @ApiModelProperty(position = 2)
-    private LocalTime finishTime;
+    @ApiModelProperty(position = 2, example = "10:00")
+    private String finishTime;
 
     @ApiModelProperty(position = 3)
     private AppointmentService service;
@@ -71,19 +70,19 @@ public class AppointmentDoc {
         this.date = date;
     }
 
-    public LocalTime getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalTime startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public LocalTime getFinishTime() {
+    public String getFinishTime() {
         return finishTime;
     }
 
-    public void setFinishTime(LocalTime finishTime) {
+    public void setFinishTime(String finishTime) {
         this.finishTime = finishTime;
     }
 
