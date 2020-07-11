@@ -13,12 +13,9 @@ class ServiceController {
 
     private final ServiceService serviceService;
 
-    private final String exampleValue = "{\n  \"name\": \"string\"\n}";
-
     ServiceController(ServiceService serviceService) {
         this.serviceService = serviceService;
     }
-
 
     @GetMapping("/services")
     @ApiOperation(value = "List existing services")
@@ -29,30 +26,25 @@ class ServiceController {
             @ApiParam(value = "Filter by service name")
             @RequestParam(defaultValue = "")
             String filter,
-
             @ApiParam(value = "Specify an ordering. \n" +
                               "+name: sort by service name, ascending. \n" +
                               "-name: sort by service name, descending. ")
             @RequestParam(defaultValue = "+name")
             String sortBy,
-
             @RequestParam(defaultValue = "0") Integer page,
-
             @RequestParam(defaultValue = "10") Integer pageSize) {
         return serviceService.listServices(filter, page, pageSize, sortBy);
     }
-
 
     @GetMapping("/services/{id}")
     @ApiOperation(value = "Find a service by id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 403, message = "Forbidden")})
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found")})
     Service getService(@PathVariable Long id) {
         return serviceService.getService(id);
     }
-
 
     @PostMapping("/services")
     @ApiOperation(value = "Add a new service")
@@ -60,43 +52,31 @@ class ServiceController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 403, message = "Forbidden")})
-    Service createService(
-            @RequestBody @Valid
-            @ApiParam(value = "New Service: \n" +
-                    "Field \"id\" is ignored!, go without it, the id is auto-generated. \n" +
-                    "Field \"name\" is mandatory. \n" +
-                    "Field \"description\" is optional. \n")
-            Service newService) {
+    @ApiImplicitParams({ @ApiImplicitParam(
+            name = "newService", value = "New service", dataType = "ServicePost")})
+    Service createService(@RequestBody @Valid Service newService) {
         return serviceService.createService(newService);
     }
-
 
     @PutMapping("/services/{id}")
     @ApiOperation(value = "Update an existing service")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 400, message = "Bad Request"),
-            @ApiResponse(code = 403, message = "Forbidden")})
-    Service updateService(
-            @PathVariable Long id,
-
-            @RequestBody @Valid
-            @ApiParam(value = "Actual Service: \n" +
-                    "Field \"id\" is ignored!, go without it, the id is in the path. \n" +
-                    "Field \"name\" is mandatory. \n" +
-                    "Field \"description\" is optional. \n")
-            Service actualService) {
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found")})
+    @ApiImplicitParams({ @ApiImplicitParam(
+            name = "actualService", value = "Actual service", dataType = "ServicePut")})
+    Service updateService( @PathVariable Long id, @RequestBody @Valid Service actualService) {
         return serviceService.updateService(id, actualService);
     }
-
 
     @DeleteMapping("/services/{id}")
     @ApiOperation(value = "Delete a service")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 403, message = "Forbidden")})
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found")})
     void deleteService(@PathVariable Long id) {
         serviceService.deleteService(id);
     }

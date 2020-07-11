@@ -17,7 +17,6 @@ class ClientController {
         this.clientService = clientService;
     }
 
-
     @GetMapping("/clients")
     @ApiOperation(value = "List existing clients")
     @ApiResponses(value = {
@@ -27,7 +26,6 @@ class ClientController {
             @ApiParam(value = "Filter by client last name")
             @RequestParam(defaultValue = "")
             String filter,
-
             @ApiParam(value = "Specify an ordering. \n" +
                               "+firstName: sort by client first name, ascending. \n" +
                               "-firstName: sort by client first name, descending. \n" +
@@ -35,77 +33,52 @@ class ClientController {
                               "-lastName: sort by client last name, descending. ")
             @RequestParam(defaultValue = "+lastName")
             String sortBy,
-
             @RequestParam(defaultValue = "0") Integer page,
-
             @RequestParam(defaultValue = "10") Integer pageSize) {
         return clientService.listClients(filter, page, pageSize, sortBy);
     }
-
 
     @GetMapping("/clients/{id}")
     @ApiOperation(value = "Find a client by id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 403, message = "Forbidden")})
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found")})
     Client getClient(@PathVariable Long id) {
         return clientService.getClient(id);
     }
-
 
     @PostMapping("/clients")
     @ApiOperation(value = "Add a new client")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 400, message = "Bad Request"),
-            @ApiResponse(code = 403, message = "Forbidden")})
-    Client createClient(
-            @RequestBody @Valid
-            @ApiParam(value = "New Client: \n" +
-                    "Field \"id\" is ignored!, go without it, the id is auto-generated. \n" +
-                    "Field \"document\" is mandatory. \n" +
-                    "Field \"firstName\" is mandatory. \n" +
-                    "Field \"lastName\" is mandatory. \n" +
-                    "Field \"email\" is mandatory. \n" +
-                    "Field \"phoneNumber\" is mandatory. \n" +
-                    "Field \"birthdate\" is optional, example value: \"1990-06-15\". \n")
-            Client newClient) {
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 400, message = "Bad Request")})
+    @ApiImplicitParams({ @ApiImplicitParam(
+            name = "newClient", value = "New client", dataType = "ClientPost")})
+    Client createClient(@RequestBody @Valid Client newClient) {
         return clientService.createClient(newClient);
     }
-
 
     @PutMapping("/clients/{id}")
     @ApiOperation(value = "Update an existing client")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 400, message = "Bad Request"),
-            @ApiResponse(code = 403, message = "Forbidden")})
-    Client updateClient(
-            @PathVariable Long id,
-
-
-            @RequestBody @Valid
-            @ApiParam(value = "Actual Client: \n" +
-                    "Field \"id\" is ignored!, go without it, the id is in the path. \n" +
-                    "Field \"document\" is mandatory. \n" +
-                    "Field \"firstName\" is mandatory. \n" +
-                    "Field \"lastName\" is mandatory. \n" +
-                    "Field \"email\" is mandatory. \n" +
-                    "Field \"phoneNumber\" is mandatory. \n" +
-                    "Field \"birthdate\" is optional, example value: \"1990-06-15\". \n")
-            Client actualClient) {
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found")})
+    @ApiImplicitParams({ @ApiImplicitParam(
+            name = "actualClient", value = "Actual client", dataType = "ClientPut")})
+    Client updateClient(@PathVariable Long id, @RequestBody @Valid Client actualClient) {
         return clientService.updateClient(id, actualClient);
     }
-
 
     @DeleteMapping("/clients/{id}")
     @ApiOperation(value = "Delete a client")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 403, message = "Forbidden")})
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found")})
     void deleteClient(@PathVariable Long id) {
         clientService.deleteClient(id);
     }

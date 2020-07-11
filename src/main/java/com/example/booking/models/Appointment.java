@@ -1,5 +1,7 @@
 package com.example.booking.models;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -11,33 +13,42 @@ public class Appointment {
 
     @Id
     @GeneratedValue
+    @ApiModelProperty(position = 0)
     private Long id;
 
     @NotNull(message = "Date is mandatory")
+    @ApiModelProperty(position = 1)
     private LocalDate date;
 
     @NotNull(message = "Start time is mandatory")
+    @ApiModelProperty(position = 2)
     private LocalTime startTime;
 
     @NotNull(message = "Finish time is mandatory")
+    @ApiModelProperty(position = 3)
     private LocalTime finishTime;
 
     @NotNull(message = "Service is mandatory")
+    @ApiModelProperty(position = 4)
     @ManyToOne(optional = false)
     private Service service;
 
     @NotNull(message = "Client is mandatory")
+    @ApiModelProperty(position = 5)
     @ManyToOne(optional = false)
     private Client client;
 
     @NotNull(message = "Professional is mandatory")
+    @ApiModelProperty(position = 6)
     @ManyToOne(optional = false)
     private Professional professional;
 
     // Valid values: S (scheduled), Y (attended), N (did not attend)
     @NotNull(message = "State is mandatory")
+    @ApiModelProperty(position = 7)
     private Character state;
 
+    @ApiModelProperty(position = 8)
     private String comment;
 
     public Appointment() {}

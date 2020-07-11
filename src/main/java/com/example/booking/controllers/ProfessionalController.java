@@ -4,14 +4,14 @@ import java.util.List;
 import java.util.Set;
 import com.example.booking.models.Service;
 import com.example.booking.services.ProfessionalService;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import com.example.booking.models.Professional;
 import javax.validation.Valid;
 
 @RestController
+@Api(tags = "Professionals")
 class ProfessionalController {
 
     private final ProfessionalService professionalService;
@@ -20,13 +20,15 @@ class ProfessionalController {
         this.professionalService = professionalService;
     }
 
-    @ApiOperation(value = "List existing professionals")
     @GetMapping("/professionals")
+    @ApiOperation(value = "List existing professionals")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 403, message = "Forbidden")})
     Page<Professional> listProfessionals(
             @ApiParam(value = "Filter by professional last name")
             @RequestParam(defaultValue = "")
             String filter,
-
             @ApiParam(value = "Specify an ordering. \n" +
                               "+firstName: sort by professional first name, ascending. \n" +
                               "-firstName: sort by professional first name, descending. \n" +
@@ -34,51 +36,88 @@ class ProfessionalController {
                               "-lastName: sort by professional last name, descending. ")
             @RequestParam(defaultValue = "+lastName")
             String sortBy,
-
             @RequestParam(defaultValue = "0") Integer page,
-
             @RequestParam(defaultValue = "10") Integer pageSize) {
         return professionalService.listProfessionals(filter, page, pageSize, sortBy);
     }
 
-    @ApiOperation(value = "Find a professional by id")
     @GetMapping("/professionals/{id}")
+    @ApiOperation(value = "Find a professional by id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found")})
     Professional getProfessional(@PathVariable Long id) {
         return professionalService.getProfessional(id);
     }
 
-    @ApiOperation(value = "Add a new professional")
     @PostMapping("/professionals")
+    @ApiOperation(value = "Add a new professional")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 403, message = "Forbidden")})
+    @ApiImplicitParams({ @ApiImplicitParam(
+            name = "newProfessional", value = "New professional", dataType = "ProfessionalPost")})
     Professional createProfessional(@RequestBody @Valid Professional newProfessional) {
         return professionalService.createProfessional(newProfessional);
     }
 
-    @ApiOperation(value = "Update an existing professional")
     @PutMapping("/professionals/{id}")
-    Professional updateProfessional(@PathVariable @Valid Long id, @RequestBody Professional actualProfessional) {
+    @ApiOperation(value = "Update an existing professional")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found")})
+    @ApiImplicitParams({ @ApiImplicitParam(
+            name = "actualProfessional", value = "Actual professional", dataType = "ProfessionalPut")})
+    Professional updateProfessional(@PathVariable Long id, @RequestBody @Valid Professional actualProfessional) {
         return professionalService.updateProfessional(id, actualProfessional);
     }
 
-    @ApiOperation(value = "Delete a professional")
     @DeleteMapping("/professionals/{id}")
+    @ApiOperation(value = "Delete a professional")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found")})
     void deleteProfessional(@PathVariable Long id) {
         professionalService.deleteProfessional(id);
     }
 
-    @ApiOperation(value = "List services provided by a professional")
     @GetMapping("/professionals/{id}/services")
+    @ApiOperation(value = "Get a professional list of services")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 403, message = "Forbidden")})
     Set<Service> listServices(@PathVariable Long id) {
         return professionalService.listServices(id);
     }
 
-    @ApiOperation(value = "Add services to a professional list of services")
     @PostMapping("/professionals/{id}/services")
+    @ApiOperation(value = "Add services to a professional list of services")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found")})
+    @ApiImplicitParams({ @ApiImplicitParam(
+            name = "services", allowMultiple = true, value = "Id's of services to add",
+            dataType = "ProfessionalServicePost")})
     void addServices(@PathVariable Long id, @RequestBody List<Service> services) {
         professionalService.addServices(id, services);
     }
 
-    @ApiOperation(value = "Remove services from a professional list of services")
     @DeleteMapping("/professionals/{id}/services")
+    @ApiOperation(value = "Remove services from a professional list of services")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found")})
+    @ApiImplicitParams({ @ApiImplicitParam(
+            name = "services", allowMultiple = true, value = "Id's of services to remove",
+            dataType = "ProfessionalServiceDelete")})
     void removeServices(@PathVariable Long id, @RequestBody List<Service> services) {
         professionalService.removeServices(id, services);
     }
