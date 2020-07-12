@@ -56,7 +56,7 @@ class AppointmentController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found")})
-    Appointment getAppointment(@PathVariable Long id) {
+    Appointment getAppointment(@PathVariable @ApiParam(value = "Appointment ID") Long id) {
         return appointmentService.getAppointment(id);
     }
 
@@ -81,7 +81,9 @@ class AppointmentController {
             @ApiResponse(code = 404, message = "Not Found")})
     @ApiImplicitParams({ @ApiImplicitParam(
             name = "actualAppointment", value = "Actual appointment", dataType = "AppointmentPut")})
-    Appointment updateAppointment(@PathVariable Long id, @RequestBody @Valid Appointment actualAppointment) {
+    Appointment updateAppointment(
+            @PathVariable @ApiParam(value = "Appointment ID") Long id,
+            @RequestBody @Valid Appointment actualAppointment) {
         return appointmentService.updateAppointment(id, actualAppointment);
     }
 
@@ -91,7 +93,7 @@ class AppointmentController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found")})
-    Appointment resetAppointment(@PathVariable Long id) {
+    Appointment resetAppointment(@PathVariable @ApiParam(value = "Appointment ID") Long id) {
         return appointmentService.setAppointmentStatus(id, AppointmentStatus.SCHEDULED);
     }
 
@@ -101,7 +103,7 @@ class AppointmentController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found")})
-    Appointment attendAppointment(@PathVariable Long id) {
+    Appointment attendAppointment(@PathVariable @ApiParam(value = "Appointment ID") Long id) {
         return appointmentService.setAppointmentStatus(id, AppointmentStatus.ATTENDED);
     }
 
@@ -111,7 +113,7 @@ class AppointmentController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found")})
-    Appointment notAttendAppointment(@PathVariable Long id) {
+    Appointment notAttendAppointment(@PathVariable @ApiParam(value = "Appointment ID") Long id) {
         return appointmentService.setAppointmentStatus(id, AppointmentStatus.NOT_ATTENDED);
     }
 
@@ -121,7 +123,7 @@ class AppointmentController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found")})
-    Appointment cancelAppointment(@PathVariable Long id) {
+    Appointment cancelAppointment(@PathVariable @ApiParam(value = "Appointment ID") Long id) {
         return appointmentService.setAppointmentStatus(id, AppointmentStatus.CANCELLED);
     }
 
@@ -131,7 +133,7 @@ class AppointmentController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found")})
-    void deleteAppointment(@PathVariable Long id) {
+    void deleteAppointment(@PathVariable @ApiParam(value = "Appointment ID") Long id) {
         appointmentService.deleteAppointment(id);
     }
 }

@@ -47,7 +47,7 @@ class ProfessionalController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found")})
-    Professional getProfessional(@PathVariable Long id) {
+    Professional getProfessional(@PathVariable @ApiParam(value = "Professional ID") Long id) {
         return professionalService.getProfessional(id);
     }
 
@@ -72,7 +72,9 @@ class ProfessionalController {
             @ApiResponse(code = 404, message = "Not Found")})
     @ApiImplicitParams({ @ApiImplicitParam(
             name = "actualProfessional", value = "Actual professional", dataType = "ProfessionalPut")})
-    Professional updateProfessional(@PathVariable Long id, @RequestBody @Valid Professional actualProfessional) {
+    Professional updateProfessional(
+            @PathVariable @ApiParam(value = "Professional ID") Long id,
+            @RequestBody @Valid Professional actualProfessional) {
         return professionalService.updateProfessional(id, actualProfessional);
     }
 
@@ -82,7 +84,7 @@ class ProfessionalController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found")})
-    void deleteProfessional(@PathVariable Long id) {
+    void deleteProfessional(@PathVariable @ApiParam(value = "Professional ID") Long id) {
         professionalService.deleteProfessional(id);
     }
 
@@ -91,7 +93,7 @@ class ProfessionalController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 403, message = "Forbidden")})
-    Set<Service> listServices(@PathVariable Long id) {
+    Set<Service> listServices(@PathVariable @ApiParam(value = "Professional ID") Long id) {
         return professionalService.listServices(id);
     }
 
@@ -103,9 +105,11 @@ class ProfessionalController {
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found")})
     @ApiImplicitParams({ @ApiImplicitParam(
-            name = "services", allowMultiple = true, value = "Id's of services to add",
+            name = "services", allowMultiple = true, value = "Services to add",
             dataType = "ProfessionalServicePost")})
-    void addServices(@PathVariable Long id, @RequestBody List<Service> services) {
+    void addServices(
+            @PathVariable @ApiParam(value = "Professional ID") Long id,
+            @RequestBody List<Service> services) {
         professionalService.addServices(id, services);
     }
 
@@ -116,9 +120,11 @@ class ProfessionalController {
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found")})
     @ApiImplicitParams({ @ApiImplicitParam(
-            name = "services", allowMultiple = true, value = "Id's of services to remove",
+            name = "services", allowMultiple = true, value = "Services to remove",
             dataType = "ProfessionalServiceDelete")})
-    void removeServices(@PathVariable Long id, @RequestBody List<Service> services) {
+    void removeServices(
+            @PathVariable @ApiParam(value = "Professional ID") Long id,
+            @RequestBody List<Service> services) {
         professionalService.removeServices(id, services);
     }
 }

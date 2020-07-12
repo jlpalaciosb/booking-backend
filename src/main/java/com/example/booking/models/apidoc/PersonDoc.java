@@ -5,19 +5,19 @@ import java.time.LocalDate;
 
 public class PersonDoc {
 
-    @ApiModelProperty(position = 0)
+    @ApiModelProperty(position = 0, example = "1234567890")
     private String document;
 
-    @ApiModelProperty(position = 1)
+    @ApiModelProperty(position = 1, example = "John")
     private String firstName;
 
-    @ApiModelProperty(position = 2)
+    @ApiModelProperty(position = 2, example = "Doe")
     private String lastName;
 
-    @ApiModelProperty(position = 3)
+    @ApiModelProperty(position = 3, example = "johndoe@example.com")
     private String email;
 
-    @ApiModelProperty(position = 4)
+    @ApiModelProperty(position = 4, example = "+1-234-567-8910")
     private String phoneNumber;
 
     @ApiModelProperty(position = 5, example = "1990-12-31")

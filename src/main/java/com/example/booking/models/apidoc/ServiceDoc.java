@@ -4,10 +4,10 @@ import io.swagger.annotations.ApiModelProperty;
 
 public abstract class ServiceDoc {
 
-    @ApiModelProperty(position = 0)
+    @ApiModelProperty(position = 0, example = "Service Name")
     private String name;
 
-    @ApiModelProperty(position = 1)
+    @ApiModelProperty(position = 1, example = "Service description")
     private String description;
 
     public String getName() {

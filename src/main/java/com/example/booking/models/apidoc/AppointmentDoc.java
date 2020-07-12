@@ -59,7 +59,7 @@ public class AppointmentDoc {
     @ApiModelProperty(position = 5)
     private AppointmentProfessional professional;
 
-    @ApiModelProperty(position = 6)
+    @ApiModelProperty(position = 6, example = "Leave a comment")
     private String comment;
 
     public LocalDate getDate() {
