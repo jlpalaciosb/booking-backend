@@ -5,19 +5,13 @@ import com.example.booking.services.AppointmentService;
 import io.swagger.annotations.*;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.example.booking.models.Appointment;
 import com.example.booking.models.Appointment.AppointmentStatus;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping("/api/appointments")
 @Api(tags = "Appointments")
 class AppointmentController {
 
@@ -27,7 +21,7 @@ class AppointmentController {
         this.appointmentService = appointmentService;
     }
 
-    @GetMapping("/appointments")
+    @GetMapping("/")
     @ApiOperation(value = "List existing appointments; sorted by date, descending")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -50,7 +44,7 @@ class AppointmentController {
         return appointmentService.listAppointments(minDate, maxDate, clientId, page, pageSize);
     }
 
-    @GetMapping("/appointments/{id}")
+    @GetMapping("/{id}")
     @ApiOperation(value = "Find an appointment by id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -60,7 +54,7 @@ class AppointmentController {
         return appointmentService.getAppointment(id);
     }
 
-    @PostMapping("/appointments")
+    @PostMapping("/")
     @ApiOperation(value = "Add a new appointment")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -72,7 +66,7 @@ class AppointmentController {
         return appointmentService.createAppointment(newAppointment);
     }
 
-    @PutMapping("/appointments/{id}")
+    @PutMapping("/{id}")
     @ApiOperation(value = "Update an existing appointment")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -87,7 +81,7 @@ class AppointmentController {
         return appointmentService.updateAppointment(id, actualAppointment);
     }
 
-    @PutMapping("/appointments/{id}/reset")
+    @PutMapping("/{id}/reset")
     @ApiOperation(value = "Set appointment status to SCHEDULED")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -97,7 +91,7 @@ class AppointmentController {
         return appointmentService.setAppointmentStatus(id, AppointmentStatus.SCHEDULED);
     }
 
-    @PutMapping("/appointments/{id}/attend")
+    @PutMapping("/{id}/attend")
     @ApiOperation(value = "Set appointment status to ATTENDED")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -107,7 +101,7 @@ class AppointmentController {
         return appointmentService.setAppointmentStatus(id, AppointmentStatus.ATTENDED);
     }
 
-    @PutMapping("/appointments/{id}/notAttend")
+    @PutMapping("/{id}/notAttend")
     @ApiOperation(value = "Set appointment status to NOT_ATTENDED")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -117,7 +111,7 @@ class AppointmentController {
         return appointmentService.setAppointmentStatus(id, AppointmentStatus.NOT_ATTENDED);
     }
 
-    @PutMapping("/appointments/{id}/cancel")
+    @PutMapping("/{id}/cancel")
     @ApiOperation(value = "Set appointment status to CANCELLED")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -127,7 +121,7 @@ class AppointmentController {
         return appointmentService.setAppointmentStatus(id, AppointmentStatus.CANCELLED);
     }
 
-    @DeleteMapping("/appointments/{id}")
+    @DeleteMapping("/{id}")
     @ApiOperation(value = "Delete an appointment")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),

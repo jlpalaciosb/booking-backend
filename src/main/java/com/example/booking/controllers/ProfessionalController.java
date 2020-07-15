@@ -11,6 +11,7 @@ import com.example.booking.models.Professional;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping("/api/professionals")
 @Api(tags = "Professionals")
 class ProfessionalController {
 
@@ -20,7 +21,7 @@ class ProfessionalController {
         this.professionalService = professionalService;
     }
 
-    @GetMapping("/professionals")
+    @GetMapping("/")
     @ApiOperation(value = "List existing professionals")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -41,7 +42,7 @@ class ProfessionalController {
         return professionalService.listProfessionals(filter, page, pageSize, sortBy);
     }
 
-    @GetMapping("/professionals/{id}")
+    @GetMapping("/{id}")
     @ApiOperation(value = "Find a professional by id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -51,7 +52,7 @@ class ProfessionalController {
         return professionalService.getProfessional(id);
     }
 
-    @PostMapping("/professionals")
+    @PostMapping("/")
     @ApiOperation(value = "Add a new professional")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -63,7 +64,7 @@ class ProfessionalController {
         return professionalService.createProfessional(newProfessional);
     }
 
-    @PutMapping("/professionals/{id}")
+    @PutMapping("/{id}")
     @ApiOperation(value = "Update an existing professional")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -78,7 +79,7 @@ class ProfessionalController {
         return professionalService.updateProfessional(id, actualProfessional);
     }
 
-    @DeleteMapping("/professionals/{id}")
+    @DeleteMapping("/{id}")
     @ApiOperation(value = "Delete a professional")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -88,7 +89,7 @@ class ProfessionalController {
         professionalService.deleteProfessional(id);
     }
 
-    @GetMapping("/professionals/{id}/services")
+    @GetMapping("/{id}/services")
     @ApiOperation(value = "Get a professional list of services")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -97,7 +98,7 @@ class ProfessionalController {
         return professionalService.listServices(id);
     }
 
-    @PostMapping("/professionals/{id}/services")
+    @PostMapping("/{id}/services")
     @ApiOperation(value = "Add services to a professional list of services")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -113,7 +114,7 @@ class ProfessionalController {
         professionalService.addServices(id, services);
     }
 
-    @DeleteMapping("/professionals/{id}/services")
+    @DeleteMapping("/{id}/services")
     @ApiOperation(value = "Remove services from a professional list of services")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),

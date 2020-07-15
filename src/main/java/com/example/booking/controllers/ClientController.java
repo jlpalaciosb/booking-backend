@@ -8,6 +8,7 @@ import com.example.booking.models.Client;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping("/api/clients")
 @Api(tags = "Clients")
 class ClientController {
 
@@ -17,7 +18,7 @@ class ClientController {
         this.clientService = clientService;
     }
 
-    @GetMapping("/clients")
+    @GetMapping("/")
     @ApiOperation(value = "List existing clients")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -38,7 +39,7 @@ class ClientController {
         return clientService.listClients(filter, page, pageSize, sortBy);
     }
 
-    @GetMapping("/clients/{id}")
+    @GetMapping("/{id}")
     @ApiOperation(value = "Find a client by id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -48,7 +49,7 @@ class ClientController {
         return clientService.getClient(id);
     }
 
-    @PostMapping("/clients")
+    @PostMapping("/")
     @ApiOperation(value = "Add a new client")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -60,7 +61,7 @@ class ClientController {
         return clientService.createClient(newClient);
     }
 
-    @PutMapping("/clients/{id}")
+    @PutMapping("/{id}")
     @ApiOperation(value = "Update an existing client")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -75,7 +76,7 @@ class ClientController {
         return clientService.updateClient(id, actualClient);
     }
 
-    @DeleteMapping("/clients/{id}")
+    @DeleteMapping("/{id}")
     @ApiOperation(value = "Delete a client")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),

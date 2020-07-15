@@ -8,6 +8,7 @@ import com.example.booking.models.Service;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping("/api/services")
 @Api(tags = "Services")
 class ServiceController {
 
@@ -17,7 +18,7 @@ class ServiceController {
         this.serviceService = serviceService;
     }
 
-    @GetMapping("/services")
+    @GetMapping("/")
     @ApiOperation(value = "List existing services")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -36,7 +37,7 @@ class ServiceController {
         return serviceService.listServices(filter, page, pageSize, sortBy);
     }
 
-    @GetMapping("/services/{id}")
+    @GetMapping("/{id}")
     @ApiOperation(value = "Find a service by id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -46,7 +47,7 @@ class ServiceController {
         return serviceService.getService(id);
     }
 
-    @PostMapping("/services")
+    @PostMapping("/")
     @ApiOperation(value = "Add a new service")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -58,7 +59,7 @@ class ServiceController {
         return serviceService.createService(newService);
     }
 
-    @PutMapping("/services/{id}")
+    @PutMapping("/{id}")
     @ApiOperation(value = "Update an existing service")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -73,7 +74,7 @@ class ServiceController {
         return serviceService.updateService(id, actualService);
     }
 
-    @DeleteMapping("/services/{id}")
+    @DeleteMapping("/{id}")
     @ApiOperation(value = "Delete a service")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
