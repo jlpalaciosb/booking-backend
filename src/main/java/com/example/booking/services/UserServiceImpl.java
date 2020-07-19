@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
         boolean creating = (oldUser == null);
         if ((creating || !oldUser.getUsername().equals(oldUser.getUsername())) &&
                 userRepo.existsByUsername(newUser.getUsername())) {
-            throw new BadRequestException("There is another user with name = " + newUser.getUsername());
+            throw new BadRequestException("There is another user with username = " + newUser.getUsername());
         }
     }
 }

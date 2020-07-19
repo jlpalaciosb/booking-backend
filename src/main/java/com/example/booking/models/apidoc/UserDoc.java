@@ -4,22 +4,11 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class UserDoc {
 
-    @ApiModelProperty(position = 0)
-    private Long id;
-
-    @ApiModelProperty(position = 1)
+    @ApiModelProperty(position = 0, example = "admin")
     private String username;
 
-    @ApiModelProperty(position = 2)
+    @ApiModelProperty(position = 1, example = "admin")
     private String password;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;

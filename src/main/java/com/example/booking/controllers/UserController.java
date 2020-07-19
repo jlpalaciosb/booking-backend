@@ -21,7 +21,8 @@ public class UserController {
     @GetMapping("/")
     @ApiOperation(value = "List existing users")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK")})
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 403, message = "Forbidden")})
     List<User> listUsers() {
         return userService.listUsers();
     }
@@ -30,7 +31,8 @@ public class UserController {
     @ApiOperation(value = "Add a new user")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 400, message = "Bad Request")})
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 403, message = "Forbidden")})
     @ApiImplicitParams({ @ApiImplicitParam(
             name = "newUser", value = "New user", dataType = "UserPost")})
     User createService(@RequestBody @Valid User newUser) {

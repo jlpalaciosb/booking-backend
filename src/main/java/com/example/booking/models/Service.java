@@ -1,7 +1,6 @@
 package com.example.booking.models;
 
 import io.swagger.annotations.ApiModelProperty;
-
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;

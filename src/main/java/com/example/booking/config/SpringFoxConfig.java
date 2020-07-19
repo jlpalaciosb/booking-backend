@@ -3,6 +3,7 @@ package com.example.booking.config;
 import com.example.booking.models.apidoc.AppointmentDoc;
 import com.example.booking.models.apidoc.ServiceDoc;
 import com.example.booking.models.apidoc.PersonDoc;
+import com.example.booking.models.apidoc.UserDoc;
 import com.fasterxml.classmate.TypeResolver;
 import com.google.common.base.Predicates;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,8 @@ public class SpringFoxConfig {
                         resolver.resolve(PersonDoc.ProfessionalServicePost.class),
                         resolver.resolve(PersonDoc.ProfessionalServiceDelete.class),
                         resolver.resolve(AppointmentDoc.AppointmentPost.class),
-                        resolver.resolve(AppointmentDoc.AppointmentPut.class))
+                        resolver.resolve(AppointmentDoc.AppointmentPut.class),
+                        resolver.resolve(UserDoc.UserPost.class))
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
