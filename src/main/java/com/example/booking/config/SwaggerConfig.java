@@ -14,10 +14,15 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import com.google.common.collect.Lists;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.service.*;
+import springfox.documentation.spi.service.contexts.SecurityContext;
+import java.util.List;
 
 @Configuration
 @EnableSwagger2
-public class SpringFoxConfig {
+public class SwaggerConfig {
 
     @Autowired
     private TypeResolver resolver;
@@ -25,6 +30,8 @@ public class SpringFoxConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("booking-backend-api")
+                .securitySchemes(Lists.newArrayList(apiKey())).securityContexts(Lists.newArrayList(securityContext()))
                 .useDefaultResponseMessages(false)
                 .additionalModels(
                         resolver.resolve(ServiceDoc.ServicePost.class),
@@ -42,6 +49,36 @@ public class SpringFoxConfig {
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .paths(Predicates.not(PathSelectors.regex("/error.*")))
+                .build()
+                .apiInfo(apiInfo());
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("Booking Backend - API ")
+                .description("Appointment Booking")
+                .contact(contact())
+                .version("1.0.0")
                 .build();
+    }
+
+    private SecurityContext securityContext() {
+        return SecurityContext.builder().securityReferences(defaultAuth()).forPaths(PathSelectors.regex("/api/.*")).build();
+    }
+
+    private List<SecurityReference> defaultAuth() {
+        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = authorizationScope;
+        return Lists.newArrayList(new SecurityReference("Authorization", authorizationScopes));
+    }
+
+    @Bean
+    SecurityScheme apiKey() {
+        return new ApiKey("Authorization", "Authorization", "header");
+    }
+
+    private Contact contact(){
+        return new Contact("admin","","joselupalaciosbo@gmail.com");
     }
 }
