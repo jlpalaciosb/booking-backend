@@ -56,7 +56,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Booking Backend - API ")
-                .description("Appointment Booking")
+                .description("Backend of an appointment booking system.")
                 .contact(contact())
                 .version("1.0.0")
                 .build();

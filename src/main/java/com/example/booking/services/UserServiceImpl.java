@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(User newUser) {
         newUser.trim();
+        newUser.setRole("USER");
         validate(null, newUser);
         return userRepo.save(newUser);
     }

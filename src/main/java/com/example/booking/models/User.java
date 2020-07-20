@@ -3,6 +3,7 @@ package com.example.booking.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
@@ -20,11 +21,13 @@ public class User {
     @ApiModelProperty(position = 1)
     private String username;
 
-    // stores password hash
     @Column(nullable = false)
     @NotBlank(message = "Password is mandatory")
-    @ApiModelProperty(position = 2)
     private String password;
+
+    @Column(nullable = false)
+    @ApiModelProperty(position = 2)
+    private String role;
 
     public Long getId() {
         return id;
@@ -49,15 +52,15 @@ public class User {
 
     @JsonProperty
     public void setPassword(String password) {
-        // String salt = BCrypt.gensalt(12);
-        // this.password = BCrypt.hashpw(password, salt);
-        this.password = password;
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt(12));
     }
 
-    // returns true if the recd password is correct
-    public boolean checkPassword(String password) {
-        // return BCrypt.checkpw(password, this.password);
-        return true;
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void trim() {
