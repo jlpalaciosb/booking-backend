@@ -1,7 +1,6 @@
 package com.example.booking.security;
 
 import com.example.booking.models.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,23 +15,13 @@ public class UserPrincipal implements UserDetails {
 
     private String username;
 
-    @JsonIgnore
     private String password;
-
-    // Probably unnecesary
-    private String name;
-
-    // Probably unnecesary
-    @JsonIgnore
-    private String email;
 
     private Collection<? extends GrantedAuthority> authorities;
 
     public UserPrincipal(Long id, String name, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
-        this.name = name;
         this.username = username;
-        this.email = email;
         this.password = password;
         this.authorities = authorities;
     }
@@ -52,14 +41,6 @@ public class UserPrincipal implements UserDetails {
 
     public Long getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     @Override

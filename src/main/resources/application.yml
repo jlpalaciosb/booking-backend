@@ -1,4 +1,0 @@
-jwt:
-  secret: mySecret
-  expirationInMs: 5048000000
-  authoritiesKey: scopes

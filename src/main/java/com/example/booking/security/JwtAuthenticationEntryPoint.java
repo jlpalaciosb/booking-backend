@@ -14,8 +14,11 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest httpServletRequest,
                          HttpServletResponse httpServletResponse,
-                         AuthenticationException e) throws IOException, ServletException {
-        System.err.println("Responding with unauthorized error");
-        httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+                         AuthenticationException authEx) throws IOException, ServletException {
+        if (authEx.getMessage().equals("Bad credentials")) {
+            httpServletResponse.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad credentials");
+        } else {
+            httpServletResponse.sendError(HttpServletResponse.SC_FORBIDDEN, "Forbidden");
+        }
     }
 }

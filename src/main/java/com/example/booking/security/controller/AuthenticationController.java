@@ -5,6 +5,8 @@ import com.example.booking.security.JwtTokenProvider;
 import com.example.booking.security.JwtAuthenticationRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,7 +36,11 @@ public class AuthenticationController {
 
     @PostMapping("/getToken")
     @ApiOperation(value = "Get access token (login)")
-    public ResponseEntity<?> authenticateUser(@RequestBody @Valid JwtAuthenticationRequest credentials) {
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 403, message = "Forbidden")})
+    public ResponseEntity<JwtAuthenticationResponse> getToken(@RequestBody @Valid JwtAuthenticationRequest credentials) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         credentials.getUsername(),
