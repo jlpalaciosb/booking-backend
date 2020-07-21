@@ -43,7 +43,7 @@ class ServiceController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found")})
-    Service getService(@PathVariable @ApiParam(value = "Service ID") Long id) {
+    Service getService(@PathVariable @ApiParam(value = "Service ID", example = "0") Long id) {
         return serviceService.getService(id);
     }
 
@@ -69,7 +69,7 @@ class ServiceController {
     @ApiImplicitParams({ @ApiImplicitParam(
             name = "actualService", value = "Actual service", dataType = "ServicePut")})
     Service updateService(
-            @PathVariable @ApiParam(value = "Service ID") Long id,
+            @PathVariable @ApiParam(value = "Service ID", example = "0") Long id,
             @RequestBody @Valid Service actualService) {
         return serviceService.updateService(id, actualService);
     }
@@ -80,7 +80,7 @@ class ServiceController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found")})
-    void deleteService(@PathVariable @ApiParam(value = "Service ID") Long id) {
+    void deleteService(@PathVariable @ApiParam(value = "Service ID", example = "0") Long id) {
         serviceService.deleteService(id);
     }
 }

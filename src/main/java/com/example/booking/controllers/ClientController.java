@@ -45,7 +45,7 @@ class ClientController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found")})
-    Client getClient(@PathVariable @ApiParam(value = "Client ID") Long id) {
+    Client getClient(@PathVariable @ApiParam(value = "Client ID", example = "0") Long id) {
         return clientService.getClient(id);
     }
 
@@ -71,7 +71,7 @@ class ClientController {
     @ApiImplicitParams({ @ApiImplicitParam(
             name = "actualClient", value = "Actual client", dataType = "ClientPut")})
     Client updateClient(
-            @PathVariable @ApiParam(value = "Client ID") Long id,
+            @PathVariable @ApiParam(value = "Client ID", example = "0") Long id,
             @RequestBody @Valid Client actualClient) {
         return clientService.updateClient(id, actualClient);
     }
@@ -82,7 +82,7 @@ class ClientController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found")})
-    void deleteClient(@PathVariable @ApiParam(value = "Client ID") Long id) {
+    void deleteClient(@PathVariable @ApiParam(value = "Client ID", example = "0") Long id) {
         clientService.deleteClient(id);
     }
 }

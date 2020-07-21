@@ -48,7 +48,7 @@ class ProfessionalController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found")})
-    Professional getProfessional(@PathVariable @ApiParam(value = "Professional ID") Long id) {
+    Professional getProfessional(@PathVariable @ApiParam(value = "Professional ID", example = "0") Long id) {
         return professionalService.getProfessional(id);
     }
 
@@ -74,7 +74,7 @@ class ProfessionalController {
     @ApiImplicitParams({ @ApiImplicitParam(
             name = "actualProfessional", value = "Actual professional", dataType = "ProfessionalPut")})
     Professional updateProfessional(
-            @PathVariable @ApiParam(value = "Professional ID") Long id,
+            @PathVariable @ApiParam(value = "Professional ID", example = "0") Long id,
             @RequestBody @Valid Professional actualProfessional) {
         return professionalService.updateProfessional(id, actualProfessional);
     }
@@ -85,7 +85,7 @@ class ProfessionalController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found")})
-    void deleteProfessional(@PathVariable @ApiParam(value = "Professional ID") Long id) {
+    void deleteProfessional(@PathVariable @ApiParam(value = "Professional ID", example = "0") Long id) {
         professionalService.deleteProfessional(id);
     }
 
@@ -94,7 +94,7 @@ class ProfessionalController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 403, message = "Forbidden")})
-    Set<Service> listServices(@PathVariable @ApiParam(value = "Professional ID") Long id) {
+    Set<Service> listServices(@PathVariable @ApiParam(value = "Professional ID", example = "0") Long id) {
         return professionalService.listServices(id);
     }
 
@@ -109,7 +109,7 @@ class ProfessionalController {
             name = "services", allowMultiple = true, value = "Services to add",
             dataType = "ProfessionalServicePost")})
     void addServices(
-            @PathVariable @ApiParam(value = "Professional ID") Long id,
+            @PathVariable @ApiParam(value = "Professional ID", example = "0") Long id,
             @RequestBody List<Service> services) {
         professionalService.addServices(id, services);
     }
@@ -124,7 +124,7 @@ class ProfessionalController {
             name = "services", allowMultiple = true, value = "Services to remove",
             dataType = "ProfessionalServiceDelete")})
     void removeServices(
-            @PathVariable @ApiParam(value = "Professional ID") Long id,
+            @PathVariable @ApiParam(value = "Professional ID", example = "0") Long id,
             @RequestBody List<Service> services) {
         professionalService.removeServices(id, services);
     }
