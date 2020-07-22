@@ -1,4 +1,5 @@
 ## Production Environment
+## For production: create the file: application-prod.properties using this file as example
 
 ## Default connection pool
 spring.datasource.hikari.connectionTimeout=20000
