@@ -30,5 +30,7 @@ build/
 ### VS Code ###
 .vscode/
 
+## Production Environment Properties File
+application-prod.properties
 
 TODO.txt

@@ -1,0 +1,17 @@
+## Production Environment
+
+## Default connection pool
+spring.datasource.hikari.connectionTimeout=20000
+spring.datasource.hikari.maximumPoolSize=5
+
+## PostgreSQL
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.datasource.url=jdbc:postgresql://localhost:5432/bookingdb
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+
+## JWT
+jwt.secret=mySecret
+jwt.expirationInMs=5048000000
+jwt.authoritiesKey=scopes
